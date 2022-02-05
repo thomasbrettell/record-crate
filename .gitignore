@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/emulator
+firestore-debug.log
+.env
+ui-debug.log
+database-debug.log
+firebase-debug.log
