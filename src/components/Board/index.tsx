@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import List from '../List';
-import { BoardProps } from '../../types';
 import AddListButton from './AddListButton';
+import { useContext } from 'react';
+import { BoardDataCtx } from '../..';
 
 const Box = styled.div`
   bottom: 0;
@@ -13,7 +14,6 @@ const Box = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-  -webkit-user-select: none;
   user-select: none;
   white-space: nowrap;
   padding-top: 16px;
@@ -25,15 +25,17 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const Board = ({ lists, title }: BoardProps) => {
+const Board = () => {
+  const { state: boardData } = useContext(BoardDataCtx);
+  if (!boardData) return null;
+
   return (
     <Wrapper>
       <Box>
-        {lists &&
-          lists.map((list, i) => (
-            <List key={`list-${i}`} index={i} title={list.title} cards={list.cards} />
-          ))}
-        <AddListButton nextI={lists.length} />
+        {boardData.lists.map((list, i) => (
+          <List key={list.id} index={i} title={list.title} cards={list.cards} />
+        ))}
+        <AddListButton />
       </Box>
     </Wrapper>
   );

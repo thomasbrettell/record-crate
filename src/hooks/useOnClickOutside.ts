@@ -7,16 +7,12 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   useEffect(() => {
     const listener = (event: MouseEvent) => {
       const el = ref?.current;
-
       if (!el || el.contains(event.target as Node)) {
         return;
       }
-
       handler(event);
     };
-
     document.addEventListener(`mousedown`, listener);
-
     return () => {
       document.removeEventListener(`mousedown`, listener);
     };

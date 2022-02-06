@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
 import Board from './components/Board';
-import { BoardProps } from './types';
 import { database } from './firebaseClient';
 import { ref, onValue } from 'firebase/database';
+import { BoardDataCtx } from '.';
 
 function App() {
-  const [board, setBoard] = useState<BoardProps | null>(null);
+  const { state: boardData, update: setBoardData } = useContext(BoardDataCtx);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,17 +15,19 @@ function App() {
       );
       onValue(boardRef, (snapshot) => {
         const data = snapshot.val();
-        setBoard(data);
+        setBoardData(data);
       });
     };
     fetchData();
-  }, []);
+  }, [setBoardData]);
 
-  if (!board) {
+  if (!boardData) {
     return <pre>Loading...</pre>;
   }
 
-  return <Board lists={board.lists} />;
+  console.log(boardData);
+
+  return <Board />;
 }
 
 export default App;

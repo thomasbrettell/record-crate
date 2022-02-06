@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { CardProps } from '../../types';
-import { DragEvent } from 'react';
+import { DragEvent, useState } from 'react';
+import CardModal from '../CardModal';
 
 const ListCard = styled.div`
   background-color: #fff;
@@ -16,12 +17,23 @@ const ListCard = styled.div`
   z-index: 0;
 `;
 
-const Card = ({ title }: CardProps) => {
+const Card = ({ title, listIndex }: CardProps) => {
+  const [entered, setEntered] = useState(false);
   const dragHandler = (event: DragEvent) => console.log(event);
+  const clickHandler = () => {
+    setEntered(true);
+  };
+  const closeHandler = () => {
+    setEntered(false);
+  };
+
   return (
-    <ListCard draggable='true' onDrag={dragHandler}>
-      <span>{title}</span>
-    </ListCard>
+    <>
+      <ListCard draggable='true' onDrag={dragHandler} onClick={clickHandler}>
+        <span>{title}</span>
+      </ListCard>
+      {entered && <CardModal onClose={closeHandler} />}
+    </>
   );
 };
 

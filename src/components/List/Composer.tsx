@@ -1,4 +1,7 @@
+import { useState, FC } from 'react';
 import styled from 'styled-components';
+import CardModal from '../CardModal';
+import AddRecordWindow from '../AddRecordWindow';
 
 const Box = styled.div`
   display: flex;
@@ -28,11 +31,22 @@ const AddButton = styled.button`
   }
 `;
 
-const Composer = () => {
+interface ComposerProps {
+  listIndex: number;
+}
+const Composer: FC<ComposerProps> = ({ listIndex }) => {
+  const [entered, setEntered] = useState(false);
   return (
-    <Box>
-      <AddButton>+ Add a record</AddButton>
-    </Box>
+    <>
+      <Box>
+        <AddButton onClick={() => setEntered(true)}>+ Add a record</AddButton>
+      </Box>
+      {entered && (
+        <CardModal onClose={() => setEntered(false)}>
+          <AddRecordWindow listIndex={listIndex} />
+        </CardModal>
+      )}
+    </>
   );
 };
 

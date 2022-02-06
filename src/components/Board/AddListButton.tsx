@@ -1,9 +1,11 @@
-import { FC, useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Wrapper } from '../List';
 import { database } from '../../firebaseClient';
 import { ref, set, child } from 'firebase/database';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
+import getTimeEpoch from '../../util/getTimeEpoch';
+import { BoardDataCtx } from '../../index';
 
 interface ButtonWrapperProps {
   entered: boolean;
@@ -40,10 +42,8 @@ const Button = styled.button`
   text-align: left;
 `;
 
-interface AppListButtonProps {
-  nextI: number;
-}
-const AddListButton: FC<AppListButtonProps> = ({ nextI }) => {
+const AddListButton = () => {
+  const { state: boardData } = useContext(BoardDataCtx);
   const [entered, setEntered] = useState(false);
   const [listName, setListName] = useState('');
   const buttonRef = useRef(null);
@@ -53,9 +53,11 @@ const AddListButton: FC<AppListButtonProps> = ({ nextI }) => {
       database,
       `boards/${process.env.REACT_APP_ENV}-board/lists`
     );
-    set(child(listsRef, nextI.toString()), {
+    if (!boardData) return;
+    set(child(listsRef, boardData.lists.length.toString()), {
       title: listName,
       cards: [],
+      id: `l-${getTimeEpoch()}`,
     });
     setListName('');
   };

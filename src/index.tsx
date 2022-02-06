@@ -3,10 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BoardProps } from './types';
+import createCtx from './util/createCtx';
+
+export const [BoardDataCtx, BoardDataProvider] = createCtx<BoardProps | null>(
+  null
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BoardDataProvider>
+      <App />
+    </BoardDataProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

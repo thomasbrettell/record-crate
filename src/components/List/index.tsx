@@ -94,10 +94,10 @@ const List = ({ title, cards, index }: ListProps) => {
         <CardList>
           {cards &&
             cards.map((card, i) => (
-              <Card key={`card-${i}`} title={card.title} />
+              <Card key={`card-${i}`} title={card.title} listIndex={index} />
             ))}
         </CardList>
-        <Composer />
+        <Composer listIndex={parseInt(index.toString())} />
       </Content>
     </Wrapper>
   );
