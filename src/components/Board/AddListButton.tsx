@@ -32,6 +32,10 @@ const ButtonWrapper = styled(Wrapper)<ButtonWrapperProps>`
     background-color: #00000029;
   }
   `}
+
+  input {
+    width: 100%;
+  }
 `;
 
 const Button = styled.button`
@@ -80,8 +84,7 @@ const AddListButton = () => {
             value={listName}
             onChange={(e) => setListName(e.target.value)}
           />
-          <button onClick={addListHandler}>Add crate</button>
-          <button onClick={() => setEntered(false)}>X</button>
+          <button onClick={addListHandler}>Add</button>
         </div>
       )}
     </ButtonWrapper>

@@ -15,6 +15,28 @@ const ListCard = styled.div`
   position: relative;
   text-decoration: none;
   z-index: 0;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #f4f5f7;
+  }
+`;
+
+const ListDetails = styled.div`
+  overflow: hidden;
+  padding: 6px 8px 2px;
+  position: relative;
+  z-index: 10;
+`;
+
+const ListTitle = styled.div`
+  word-wrap: break-word;
+  clear: both;
+  color: #172b4d;
+  display: block;
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-decoration: none;
 `;
 
 const Card = ({ title, listIndex }: CardProps) => {
@@ -30,7 +52,9 @@ const Card = ({ title, listIndex }: CardProps) => {
   return (
     <>
       <ListCard draggable='true' onDrag={dragHandler} onClick={clickHandler}>
-        <span>{title}</span>
+        <ListDetails>
+          <ListTitle>{title}</ListTitle>
+        </ListDetails>
       </ListCard>
       {entered && <CardModal onClose={closeHandler} />}
     </>

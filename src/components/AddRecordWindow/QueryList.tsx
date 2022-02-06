@@ -13,24 +13,23 @@ interface QueryListProps {
   listIndex: number;
 }
 const QueryList: FC<QueryListProps> = ({ catno, listIndex }) => {
-  const { response } = useCatNo(catno);
-
-  if (!response) {
-    return null;
-  }
+  const { response, isLoading } = useCatNo(catno);
 
   return (
     <List>
-      {response.results.map((release) => (
-        <ListItem
-          key={release.id}
-          title={release.title}
-          uri={release.uri}
-          cover_image={release.cover_image}
-          id={release.id}
-          listIndex={listIndex}
-        />
-      ))}
+      {isLoading && <pre>Loading...</pre>}
+      {!isLoading &&
+        response &&
+        response.results.map((release) => (
+          <ListItem
+            key={release.id}
+            title={release.title}
+            uri={release.uri}
+            cover_image={release.cover_image}
+            id={release.id}
+            listIndex={listIndex}
+          />
+        ))}
     </List>
   );
 };
