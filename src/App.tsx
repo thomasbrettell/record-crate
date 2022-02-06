@@ -2,20 +2,20 @@ import { useEffect, useState } from 'react';
 import Board from './components/Board';
 import { BoardProps } from './types';
 import { database } from './firebaseClient';
-import { ref, get, child } from 'firebase/database';
+import { ref, onValue } from 'firebase/database';
 
 function App() {
   const [board, setBoard] = useState<BoardProps | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const dbRef = ref(database);
-      get(child(dbRef, 'boards/0')).then((snapshot) => {
-        if (snapshot.exists()) {
-          setBoard(snapshot.val());
-        } else {
-          console.log('No data available');
-        }
+      const boardRef = ref(
+        database,
+        `boards/${process.env.REACT_APP_ENV}-board`
+      );
+      onValue(boardRef, (snapshot) => {
+        const data = snapshot.val();
+        setBoard(data);
       });
     };
     fetchData();

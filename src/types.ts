@@ -6,6 +6,7 @@ export interface BoardProps {
 export interface ListProps {
   title: string;
   cards: CardProps[];
+  index: number | string;
 }
 
 export interface CardProps {

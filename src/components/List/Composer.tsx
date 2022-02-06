@@ -31,7 +31,7 @@ const AddButton = styled.button`
 const Composer = () => {
   return (
     <Box>
-      <AddButton>Add a record</AddButton>
+      <AddButton>+ Add a record</AddButton>
     </Box>
   );
 };

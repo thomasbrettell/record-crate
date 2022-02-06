@@ -29,10 +29,11 @@ const Board = ({ lists, title }: BoardProps) => {
   return (
     <Wrapper>
       <Box>
-        {lists.map((list, i) => (
-          <List key={`list-${i}`} title={list.title} cards={list.cards} />
-        ))}
-        <AddListButton />
+        {lists &&
+          lists.map((list, i) => (
+            <List key={`list-${i}`} index={i} title={list.title} cards={list.cards} />
+          ))}
+        <AddListButton nextI={lists.length} />
       </Box>
     </Wrapper>
   );

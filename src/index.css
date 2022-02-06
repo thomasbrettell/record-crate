@@ -29,3 +29,7 @@ code {
 button, a {
   cursor: pointer;
 }
+
+body {
+  background: #b1d4e9;
+}
