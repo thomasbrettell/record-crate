@@ -32,7 +32,7 @@ const Board = () => {
   return (
     <Wrapper>
       <Box>
-        {boardData.lists.map((list, i) => (
+        {boardData.lists?.map((list, i) => (
           <List key={list.id} index={i} title={list.title} cards={list.cards} />
         ))}
         <AddListButton />

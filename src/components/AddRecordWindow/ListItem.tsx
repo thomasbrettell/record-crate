@@ -48,8 +48,8 @@ const ListItem: FC<ListItemProps> = ({
 }) => {
   const { state: boardData } = useContext(BoardDataCtx);
   const addRecordHandler = () => {
-    if (!boardData) return;
-    const nextCardIndex = boardData?.lists[listIndex].cards?.length || 0;
+    if (!boardData || !boardData.lists) return;
+    const nextCardIndex = boardData.lists[listIndex].cards?.length || 0;
     const listRef = ref(
       database,
       `boards/${process.env.REACT_APP_ENV}-board/lists/${listIndex}`

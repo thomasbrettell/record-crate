@@ -1,11 +1,11 @@
 export interface BoardProps {
-  lists: ListProps[];
+  lists?: ListProps[];
   title?: string;
 }
 
 export interface ListProps {
   title: string;
-  cards: CardProps[];
+  cards?: CardProps[];
   index: number | string;
   id?: string;
 }

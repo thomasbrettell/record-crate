@@ -54,7 +54,8 @@ const AddListButton = () => {
       `boards/${process.env.REACT_APP_ENV}-board/lists`
     );
     if (!boardData) return;
-    set(child(listsRef, boardData.lists.length.toString()), {
+    const nextListIndex = boardData.lists?.length || 0;
+    set(child(listsRef, nextListIndex.toString()), {
       title: listName,
       cards: [],
       id: `l-${getTimeEpoch()}`,
@@ -71,7 +72,7 @@ const AddListButton = () => {
   return (
     <ButtonWrapper entered={entered} ref={buttonRef}>
       {!entered && (
-        <Button onClick={() => setEntered(true)}>+ Add another crate</Button>
+        <Button onClick={() => setEntered(true)}>+ Add a crate</Button>
       )}
       {entered && (
         <div>
