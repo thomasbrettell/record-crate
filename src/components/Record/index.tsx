@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { RecordType } from '../../types';
 import { DragEvent, FC, useState } from 'react';
 import CardModal from '../CardModal';
+import { Draggable } from 'react-beautiful-dnd';
 
 const ListCard = styled.div`
   background-color: #fff;
@@ -39,7 +40,10 @@ const ListTitle = styled.div`
   text-decoration: none;
 `;
 
-const Card: FC<RecordType> = ({ title, id }) => {
+interface RecordProps extends RecordType {
+  index: number;
+}
+const Record: FC<RecordProps> = ({ title, id, index }) => {
   const [entered, setEntered] = useState(false);
   const dragHandler = (event: DragEvent) => console.log(event);
   const clickHandler = () => {
@@ -50,15 +54,24 @@ const Card: FC<RecordType> = ({ title, id }) => {
   };
 
   return (
-    <>
-      <ListCard draggable='true' onDrag={dragHandler} onClick={clickHandler}>
-        <ListDetails>
-          <ListTitle>{title}</ListTitle>
-        </ListDetails>
-      </ListCard>
-      {entered && <CardModal onClose={closeHandler} />}
-    </>
+    <Draggable draggableId={id} index={index}>
+      {(provided) => (
+        <ListCard
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          draggable='true'
+          onDrag={dragHandler}
+          onClick={clickHandler}
+        >
+          <ListDetails>
+            <ListTitle>{title}</ListTitle>
+          </ListDetails>
+        </ListCard>
+        // {entered && <CardModal onClose={closeHandler} />}
+      )}
+    </Draggable>
   );
 };
 
-export default Card;
+export default Record;

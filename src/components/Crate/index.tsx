@@ -6,6 +6,7 @@ import { ChangeEvent, useContext } from 'react';
 import { update, ref } from 'firebase/database';
 import { database } from '../../firebaseClient';
 import { BoardDataCtx } from '../..';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
@@ -75,7 +76,10 @@ const Textarea = styled.textarea`
   border: none;
 `;
 
-const List = ({ title, id, recordIds }: CrateType) => {
+interface CrateProps extends CrateType {
+  index: number;
+}
+const List = ({ title, id, recordIds, index }: CrateProps) => {
   const { state: boardData } = useContext(BoardDataCtx);
 
   const renameHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -89,22 +93,36 @@ const List = ({ title, id, recordIds }: CrateType) => {
   };
 
   return (
-    <Wrapper>
-      <Content>
-        <Header>
-          <Textarea defaultValue={title} onBlur={renameHandler}></Textarea>
-        </Header>
-        <CrateList>
-          {recordIds.map((recordId) => {
-            const record = boardData.records[recordId];
-            return (
-              <Record key={record.id} title={record.title} id={record.id} />
-            );
-          })}
-        </CrateList>
-        <Composer listIndex={1} />
-      </Content>
-    </Wrapper>
+    <Draggable draggableId={id} index={index}>
+      {(provided) => (
+        <Wrapper {...provided.draggableProps} ref={provided.innerRef}>
+          <Content {...provided.dragHandleProps}>
+            <Header>
+              <Textarea defaultValue={title} onBlur={renameHandler}></Textarea>
+            </Header>
+            <Droppable droppableId={`${id}-records`} direction='vertical'>
+              {(provided) => (
+                <CrateList {...provided.droppableProps} ref={provided.innerRef}>
+                  {recordIds.map((recordId, i) => {
+                    const record = boardData.records[recordId];
+                    return (
+                      <Record
+                        key={record.id}
+                        title={record.title}
+                        id={record.id}
+                        index={i}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                </CrateList>
+              )}
+            </Droppable>
+            <Composer listIndex={1} />
+          </Content>
+        </Wrapper>
+      )}
+    </Draggable>
   );
 };
 

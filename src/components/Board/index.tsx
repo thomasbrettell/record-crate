@@ -3,6 +3,7 @@ import Crate from '../Crate';
 import AddListButton from './AddListButton';
 import { useContext } from 'react';
 import { BoardDataCtx } from '../..';
+import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 
 const Box = styled.div`
   bottom: 0;
@@ -27,23 +28,34 @@ const Wrapper = styled.div`
 
 const Board = () => {
   const { state: boardData } = useContext(BoardDataCtx);
+  const onDragEnd = (e: DropResult) => {
+    console.log(e);
+  };
 
   return (
     <Wrapper>
-      <Box>
-        {boardData.crateOrder.map((crateId) => {
-          const crate = boardData.crates[crateId];
-          return (
-            <Crate
-              key={crate.id}
-              title={crate.title}
-              id={crate.id}
-              recordIds={crate.recordIds}
-            />
-          );
-        })}
-        <AddListButton />
-      </Box>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId='all-crates' direction='horizontal' type='crate'>
+          {(provided) => (
+            <Box {...provided.droppableProps} ref={provided.innerRef}>
+              {boardData.crateOrder.map((crateId, i) => {
+                const crate = boardData.crates[crateId];
+                return (
+                  <Crate
+                    key={crate.id}
+                    title={crate.title}
+                    id={crate.id}
+                    recordIds={crate.recordIds}
+                    index={i}
+                  />
+                );
+              })}
+              {provided.placeholder}
+              <AddListButton />
+            </Box>
+          )}
+        </Droppable>
+      </DragDropContext>
     </Wrapper>
   );
 };

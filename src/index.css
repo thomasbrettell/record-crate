@@ -32,4 +32,5 @@ button, a {
 
 body {
   background: #b1d4e9;
+  overflow: hidden;
 }
