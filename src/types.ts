@@ -1,16 +1,20 @@
-export interface BoardProps {
-  lists?: ListProps[];
-  title?: string;
+export interface BoardType {
+  crateOrder: string[];
+  crates: {
+    [id: string]: CrateType;
+  };
+  records: {
+    [id: string]: RecordType;
+  };
 }
 
-export interface ListProps {
+export interface CrateType {
   title: string;
-  cards?: CardProps[];
-  index: number | string;
-  id?: string;
+  id: string;
+  recordIds: string[];
 }
 
-export interface CardProps {
+export interface RecordType {
   title: string;
-  listIndex: number | string;
+  id: string;
 }

@@ -1,6 +1,6 @@
 import { useRef, useState, useContext } from 'react';
 import styled from 'styled-components';
-import { Wrapper } from '../List';
+import { Wrapper } from '../Crate';
 import { database } from '../../firebaseClient';
 import { ref, set, child } from 'firebase/database';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
@@ -53,18 +53,18 @@ const AddListButton = () => {
   const buttonRef = useRef(null);
 
   const addListHandler = () => {
-    const listsRef = ref(
-      database,
-      `boards/${process.env.REACT_APP_ENV}-board/lists`
-    );
-    if (!boardData) return;
-    const nextListIndex = boardData.lists?.length || 0;
-    set(child(listsRef, nextListIndex.toString()), {
-      title: listName,
-      cards: [],
-      id: `l-${getTimeEpoch()}`,
-    });
-    setListName('');
+    // const listsRef = ref(
+    //   database,
+    //   `boards/${process.env.REACT_APP_ENV}-board/lists`
+    // );
+    // if (!boardData) return;
+    // const nextListIndex = boardData.lists?.length || 0;
+    // set(child(listsRef, nextListIndex.toString()), {
+    //   title: listName,
+    //   cards: [],
+    //   id: `l-${getTimeEpoch()}`,
+    // });
+    // setListName('');
   };
 
   const clickOutsideHandler = () => {

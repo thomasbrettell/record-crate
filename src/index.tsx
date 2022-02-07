@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BoardProps } from './types';
+import { BoardType } from './types';
 import createCtx from './util/createCtx';
 
-export const [BoardDataCtx, BoardDataProvider] = createCtx<BoardProps | null>(
-  null
-);
+const initialState: BoardType = {
+  crateOrder: [],
+  crates: {},
+  records: {},
+};
+export const [BoardDataCtx, BoardDataProvider] =
+  createCtx<BoardType>(initialState);
 
 ReactDOM.render(
   <React.StrictMode>

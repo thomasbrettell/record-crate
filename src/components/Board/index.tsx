@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import List from '../List';
+import Crate from '../Crate';
 import AddListButton from './AddListButton';
 import { useContext } from 'react';
 import { BoardDataCtx } from '../..';
@@ -27,14 +27,21 @@ const Wrapper = styled.div`
 
 const Board = () => {
   const { state: boardData } = useContext(BoardDataCtx);
-  if (!boardData) return null;
 
   return (
     <Wrapper>
       <Box>
-        {boardData.lists?.map((list, i) => (
-          <List key={list.id} index={i} title={list.title} cards={list.cards} />
-        ))}
+        {boardData.crateOrder.map((crateId) => {
+          const crate = boardData.crates[crateId];
+          return (
+            <Crate
+              key={crate.id}
+              title={crate.title}
+              id={crate.id}
+              recordIds={crate.recordIds}
+            />
+          );
+        })}
         <AddListButton />
       </Box>
     </Wrapper>

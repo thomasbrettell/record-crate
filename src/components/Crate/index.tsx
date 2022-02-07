@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import Card from '../Card';
-import { ListProps } from '../../types';
+import Record from '../Record';
+import { CrateType } from '../../types';
 import Composer from './Composer';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useContext } from 'react';
 import { update, ref } from 'firebase/database';
 import { database } from '../../firebaseClient';
+import { BoardDataCtx } from '../..';
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
@@ -37,7 +38,7 @@ export const Content = styled.div`
   cursor: pointer;
 `;
 
-const CardList = styled.div`
+const CrateList = styled.div`
   flex: 1 1 auto;
   margin: 0 4px;
   min-height: 0;
@@ -74,30 +75,34 @@ const Textarea = styled.textarea`
   border: none;
 `;
 
-const List = ({ title, cards, index }: ListProps) => {
+const List = ({ title, id, recordIds }: CrateType) => {
+  const { state: boardData } = useContext(BoardDataCtx);
+
   const renameHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const listRef = ref(
-      database,
-      `boards/${process.env.REACT_APP_ENV}-board/lists/${index}`
-    );
-    update(listRef, {
-      title: e.target.value,
-    });
+    // const listRef = ref(
+    //   database,
+    //   `boards/${process.env.REACT_APP_ENV}-board/lists/${index}`
+    // );
+    // update(listRef, {
+    //   title: e.target.value,
+    // });
   };
 
   return (
     <Wrapper>
-      <Content draggable='true'>
+      <Content>
         <Header>
           <Textarea defaultValue={title} onBlur={renameHandler}></Textarea>
         </Header>
-        <CardList>
-          {cards &&
-            cards.map((card, i) => (
-              <Card key={`card-${i}`} title={card.title} listIndex={index} />
-            ))}
-        </CardList>
-        <Composer listIndex={parseInt(index.toString())} />
+        <CrateList>
+          {recordIds.map((recordId) => {
+            const record = boardData.records[recordId];
+            return (
+              <Record key={record.id} title={record.title} id={record.id} />
+            );
+          })}
+        </CrateList>
+        <Composer listIndex={1} />
       </Content>
     </Wrapper>
   );

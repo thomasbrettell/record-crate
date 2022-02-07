@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { CardProps } from '../../types';
-import { DragEvent, useState } from 'react';
+import { RecordType } from '../../types';
+import { DragEvent, FC, useState } from 'react';
 import CardModal from '../CardModal';
 
 const ListCard = styled.div`
@@ -39,7 +39,7 @@ const ListTitle = styled.div`
   text-decoration: none;
 `;
 
-const Card = ({ title, listIndex }: CardProps) => {
+const Card: FC<RecordType> = ({ title, id }) => {
   const [entered, setEntered] = useState(false);
   const dragHandler = (event: DragEvent) => console.log(event);
   const clickHandler = () => {
