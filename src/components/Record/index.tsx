@@ -54,23 +54,25 @@ const Record: FC<RecordProps> = ({ title, id, index }) => {
   };
 
   return (
-    <Draggable draggableId={id} index={index}>
-      {(provided) => (
-        <ListCard
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          draggable='true'
-          onDrag={dragHandler}
-          onClick={clickHandler}
-        >
-          <ListDetails>
-            <ListTitle>{title}</ListTitle>
-          </ListDetails>
-        </ListCard>
-        // {entered && <CardModal onClose={closeHandler} />}
-      )}
-    </Draggable>
+    <>
+      <Draggable draggableId={id} index={index}>
+        {(provided) => (
+          <ListCard
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            draggable='true'
+            onDrag={dragHandler}
+            onClick={clickHandler}
+          >
+            <ListDetails>
+              <ListTitle>{title}</ListTitle>
+            </ListDetails>
+          </ListCard>
+        )}
+      </Draggable>
+      {entered && <CardModal onClose={closeHandler} />}
+    </>
   );
 };
 

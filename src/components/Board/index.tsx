@@ -19,6 +19,8 @@ const Box = styled.div`
   white-space: nowrap;
   padding-top: 16px;
   margin-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
 `;
 
 const Wrapper = styled.div`
@@ -27,9 +29,28 @@ const Wrapper = styled.div`
 `;
 
 const Board = () => {
-  const { state: boardData } = useContext(BoardDataCtx);
-  const onDragEnd = (e: DropResult) => {
-    console.log(e);
+  const { state: boardData, update: setBoardData } = useContext(BoardDataCtx);
+  const onDragEnd = ({
+    destination,
+    source,
+    draggableId,
+    type,
+  }: DropResult) => {
+    if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    if (type === 'crate') {
+      const newCrateOrder = Array.from(boardData.crateOrder);
+      newCrateOrder.splice(source.index, 1);
+      newCrateOrder.splice(destination.index, 0, draggableId);
+      setBoardData({ ...boardData, crateOrder: newCrateOrder });
+    } else if (type === 'record') {
+      console.log(source, destination);
+    }
   };
 
   return (

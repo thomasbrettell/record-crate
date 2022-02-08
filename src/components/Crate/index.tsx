@@ -16,14 +16,6 @@ export const Wrapper = styled.div`
   vertical-align: top;
   white-space: nowrap;
   width: 272px;
-
-  &:first-child {
-    margin-left: 16px;
-  }
-
-  &:last-child {
-    margin-right: 16px;
-  }
 `;
 
 export const Content = styled.div`
@@ -100,7 +92,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
             <Header>
               <Textarea defaultValue={title} onBlur={renameHandler}></Textarea>
             </Header>
-            <Droppable droppableId={`${id}-records`} direction='vertical'>
+            <Droppable droppableId={id} direction='vertical' type='record'>
               {(provided) => (
                 <CrateList {...provided.droppableProps} ref={provided.innerRef}>
                   {recordIds && recordIds.map((recordId, i) => {
