@@ -1,0 +1,6 @@
+{
+  "rules": {
+    ".read": "now < 1646571600000",
+    ".write": "auth.uid === 'L0EEoHI0mWkbQZHLtZ6kk7SC3EQk'", //this uid is only for my local emualtor... chill
+  }
+}

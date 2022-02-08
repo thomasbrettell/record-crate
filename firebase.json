@@ -3,6 +3,9 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+  "database": {
+    "rules": "database.rules"
+  },
   "emulators": {
     "firestore": {
       "port": 8080
@@ -12,6 +15,9 @@
     },
     "database": {
       "port": 9000
+    },
+    "auth": {
+      "port": 9099
     }
   }
 }

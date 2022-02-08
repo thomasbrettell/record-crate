@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
-import { set, ref, child, push, update } from 'firebase/database';
+import { set, ref, push, update } from 'firebase/database';
 import { BoardDataCtx } from '../..';
 import { database } from '../../firebaseClient';
 
@@ -59,13 +59,13 @@ const ListItem: FC<ListItemProps> = ({
       title: title,
       discogsId: id,
     });
-    update(newRecord, {
-      id: newRecord.key,
-    });
     set(recordIdsRef, [
       ...(boardData.crates[crateId].recordIds || []),
       newRecord.key,
     ]);
+    update(newRecord, {
+      id: newRecord.key,
+    });
     onClose();
   };
   return (

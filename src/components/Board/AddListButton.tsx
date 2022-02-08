@@ -58,10 +58,10 @@ const AddListButton = () => {
     const newCrate = push(cratesRef, {
       title: listName,
     });
+    set(crateOrderRef, [...(boardData.crateOrder || []), newCrate.key]);
     update(newCrate, {
       id: newCrate.key,
     });
-    set(crateOrderRef, [...(boardData.crateOrder || []), newCrate.key]);
     setListName('');
   };
 

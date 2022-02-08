@@ -45,7 +45,6 @@ interface RecordProps extends RecordType {
 }
 const Record: FC<RecordProps> = ({ title, id, index }) => {
   const [entered, setEntered] = useState(false);
-  const dragHandler = (event: DragEvent) => console.log(event);
   const clickHandler = () => {
     setEntered(true);
   };
@@ -61,8 +60,6 @@ const Record: FC<RecordProps> = ({ title, id, index }) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
-            draggable='true'
-            onDrag={dragHandler}
             onClick={clickHandler}
           >
             <ListDetails>
