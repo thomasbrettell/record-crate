@@ -2,11 +2,14 @@ import styled from 'styled-components';
 import Record from '../Record';
 import { CrateType } from '../../types';
 import Composer from './Composer';
-import { ChangeEvent, useContext } from 'react';
-import { set, ref } from 'firebase/database';
+import { ChangeEvent, useContext, useRef, useState } from 'react';
+import { set, ref, remove } from 'firebase/database';
 import { database } from '../../firebaseClient';
 import { BoardDataCtx } from '../..';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
+import TextareaAutosize from 'react-textarea-autosize';
+import IconButton from '../UI/IconButton';
+import Close from '../Icons/Close';
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
@@ -46,9 +49,11 @@ const Header = styled.div`
   min-height: 20px;
   padding: 10px 8px;
   position: relative;
+  display: flex;
+  padding-right: 35px;
 `;
 
-const Textarea = styled.textarea`
+const Textarea = styled(TextareaAutosize)`
   resize: none;
   background: #0000;
   border-radius: 3px;
@@ -66,6 +71,29 @@ const Textarea = styled.textarea`
   height: 28px;
   font-family: inherit;
   border: none;
+  line-height: 1.55;
+  overflow: hidden;
+  overflow-wrap: break-word;
+`;
+
+const ClickBlocker = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const DeleteButton = styled(IconButton)`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  padding: 4px;
+
+  &:hover {
+    background-color: #091e4214;
+  }
 `;
 
 interface CrateProps extends CrateType {
@@ -73,6 +101,8 @@ interface CrateProps extends CrateType {
 }
 const List = ({ title, id, recordIds, index }: CrateProps) => {
   const { state: boardData } = useContext(BoardDataCtx);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [textareaEntered, setTextareaEntered] = useState(false);
 
   const renameHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const crateTitleRef = ref(
@@ -80,6 +110,30 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
       `boards/${boardData.id}/crates/${id}/title`
     );
     set(crateTitleRef, e.target.value);
+    setTextareaEntered(false);
+  };
+
+  const deleteHandler = () => {
+    const crateRecords = boardData.crates[id].recordIds;
+    const crateOrderRef = ref(database, `boards/${boardData.id}/crateOrder`);
+    const crateRef = ref(database, `boards/${boardData.id}/crates/${id}`);
+    const newCrateOrder = Array.from(boardData.crateOrder || []);
+    newCrateOrder.splice(index, 1);
+
+    crateRecords?.forEach((recordId) => {
+      const recordRef = ref(
+        database,
+        `boards/${boardData.id}/records/${recordId}`
+      );
+      remove(recordRef);
+    });
+    remove(crateRef);
+    set(crateOrderRef, newCrateOrder);
+  };
+
+  const textareaEnterHandler = () => {
+    setTextareaEntered(true);
+    textareaRef.current?.focus();
   };
 
   return (
@@ -88,9 +142,20 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
         <Wrapper {...provided.draggableProps} ref={provided.innerRef}>
           <Content {...provided.dragHandleProps}>
             <Header>
-              <Textarea defaultValue={title} onBlur={renameHandler}></Textarea>
+              <Textarea
+                ref={textareaRef}
+                defaultValue={title}
+                onBlur={renameHandler}
+              ></Textarea>
+              <DeleteButton
+                icon={<Close size={20} />}
+                onClick={deleteHandler}
+              />
+              {!textareaEntered && (
+                <ClickBlocker onClick={textareaEnterHandler} />
+              )}
             </Header>
-            <Droppable droppableId={id} direction="vertical" type="record">
+            <Droppable droppableId={id} direction='vertical' type='record'>
               {(provided) => (
                 <CrateList {...provided.droppableProps} ref={provided.innerRef}>
                   {recordIds &&

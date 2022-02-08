@@ -6,6 +6,7 @@ import { BoardDataCtx } from '../..';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { ref, set } from 'firebase/database';
 import { database } from '../../firebaseClient';
+import Header from '../Header';
 
 const Box = styled.div`
   bottom: 0;
@@ -20,7 +21,6 @@ const Box = styled.div`
   user-select: none;
   white-space: nowrap;
   padding-top: 16px;
-  margin-top: 16px;
   padding-left: 16px;
   padding-right: 16px;
 `;
@@ -86,31 +86,38 @@ const Board = () => {
   };
 
   return (
-    <Wrapper>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="all-crates" direction="horizontal" type="crate">
-          {(provided) => (
-            <Box {...provided.droppableProps} ref={provided.innerRef}>
-              {boardData.crateOrder &&
-                boardData.crateOrder.map((crateId, i) => {
-                  const crate = boardData.crates[crateId];
-                  return (
-                    <Crate
-                      key={crate.id}
-                      title={crate.title}
-                      id={crate.id}
-                      recordIds={crate.recordIds}
-                      index={i}
-                    />
-                  );
-                })}
-              {provided.placeholder}
-              <AddListButton />
-            </Box>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </Wrapper>
+    <>
+      <Header />
+      <Wrapper>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            droppableId='all-crates'
+            direction='horizontal'
+            type='crate'
+          >
+            {(provided) => (
+              <Box {...provided.droppableProps} ref={provided.innerRef}>
+                {boardData.crateOrder &&
+                  boardData.crateOrder.map((crateId, i) => {
+                    const crate = boardData.crates[crateId];
+                    return (
+                      <Crate
+                        key={crate.id}
+                        title={crate.title}
+                        id={crate.id}
+                        recordIds={crate.recordIds}
+                        index={i}
+                      />
+                    );
+                  })}
+                {provided.placeholder}
+                <AddListButton />
+              </Box>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </Wrapper>
+    </>
   );
 };
 

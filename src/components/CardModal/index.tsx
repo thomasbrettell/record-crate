@@ -17,12 +17,12 @@ const Overlay = styled.div`
   top: 0;
   width: 100%;
   z-index: 20;
+  padding: 0 5px;
 `;
 
 interface CardModalProps {
   onClose: () => void;
 }
-
 const CardModal: FC<CardModalProps> = ({ onClose, children }) => {
   const overlayRef = useRef(null);
   const closeHandler = (e: MouseEvent<HTMLDivElement>) => {

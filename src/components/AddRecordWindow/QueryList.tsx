@@ -11,8 +11,9 @@ const List = styled.div`
 interface QueryListProps {
   catno: string;
   crateId: string;
+  onClose: () => void;
 }
-const QueryList: FC<QueryListProps> = ({ catno, crateId }) => {
+const QueryList: FC<QueryListProps> = ({ catno, crateId, onClose }) => {
   const { response, isLoading } = useCatNo(catno);
 
   return (
@@ -28,6 +29,7 @@ const QueryList: FC<QueryListProps> = ({ catno, crateId }) => {
             cover_image={release.cover_image}
             id={release.id}
             crateId={crateId}
+            onClose={onClose}
           />
         ))}
     </List>

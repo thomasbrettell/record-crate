@@ -19,8 +19,9 @@ const Form = styled.form`
 
 interface AddRecordWindowProps {
   crateId: string;
+  onClose: () => void;
 }
-const AddRecordWindow: FC<AddRecordWindowProps> = ({ crateId }) => {
+const AddRecordWindow: FC<AddRecordWindowProps> = ({ crateId, onClose }) => {
   const [catno, setCatno] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const submitHandler = (e: FormEvent) => {
@@ -38,7 +39,7 @@ const AddRecordWindow: FC<AddRecordWindowProps> = ({ crateId }) => {
         <input ref={inputRef} />
         <button type='submit'>Search</button>
       </Form>
-      {catno && <QueryList catno={catno} crateId={crateId} />}
+      {catno && <QueryList catno={catno} crateId={crateId} onClose={onClose} />}
     </Window>
   );
 };

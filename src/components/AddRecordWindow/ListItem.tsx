@@ -38,6 +38,7 @@ interface ListItemProps {
   cover_image: string;
   id: string;
   crateId: string;
+  onClose: () => void;
 }
 const ListItem: FC<ListItemProps> = ({
   uri,
@@ -45,6 +46,7 @@ const ListItem: FC<ListItemProps> = ({
   cover_image,
   id,
   crateId,
+  onClose,
 }) => {
   const { state: boardData } = useContext(BoardDataCtx);
   const addRecordHandler = () => {
@@ -64,14 +66,15 @@ const ListItem: FC<ListItemProps> = ({
       ...(boardData.crates[crateId].recordIds || []),
       newRecord.key,
     ]);
+    onClose();
   };
   return (
     <Item>
       <Left>
         <Image style={{ backgroundImage: `url(${cover_image})` }} />
         <a
-          target="_blank"
-          rel="noreferrer"
+          target='_blank'
+          rel='noreferrer'
           href={`https://www.discogs.com${uri}`}
         >
           {title}

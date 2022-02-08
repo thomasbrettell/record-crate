@@ -1,6 +1,7 @@
 @import-normalize;
 
-body, html {
+body,
+html {
   height: 100%;
 }
 
@@ -26,7 +27,8 @@ code {
   box-sizing: border-box;
 }
 
-button, a {
+button,
+a {
   cursor: pointer;
 }
 

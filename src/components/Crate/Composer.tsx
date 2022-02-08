@@ -43,7 +43,10 @@ const Composer: FC<ComposerProps> = ({ crateId }) => {
       </Box>
       {entered && (
         <CardModal onClose={() => setEntered(false)}>
-          <AddRecordWindow crateId={crateId} />
+          <AddRecordWindow
+            crateId={crateId}
+            onClose={() => setEntered(false)}
+          />
         </CardModal>
       )}
     </>
