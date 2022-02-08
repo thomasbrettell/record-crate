@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext, FormEvent } from 'react';
 import styled from 'styled-components';
 import { Wrapper } from '../Crate';
 import { database } from '../../firebaseClient';
@@ -51,7 +51,8 @@ const AddListButton = () => {
   const [listName, setListName] = useState('');
   const buttonRef = useRef(null);
 
-  const addListHandler = () => {
+  const addListHandler = (e: FormEvent) => {
+    e.preventDefault();
     const crateOrderRef = ref(database, `boards/${boardData.id}/crateOrder`);
     const cratesRef = ref(database, `boards/${boardData.id}/crates`);
     const newCrate = push(cratesRef, {
@@ -76,13 +77,13 @@ const AddListButton = () => {
         <Button onClick={() => setEntered(true)}>+ Add a crate</Button>
       )}
       {entered && (
-        <div>
+        <form onSubmit={addListHandler}>
           <input
             value={listName}
             onChange={(e) => setListName(e.target.value)}
           />
-          <button onClick={addListHandler}>Add</button>
-        </div>
+          <button type='submit'>Add</button>
+        </form>
       )}
     </ButtonWrapper>
   );
