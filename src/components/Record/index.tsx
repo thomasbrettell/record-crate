@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import { RecordType } from '../../types';
-import { DragEvent, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import CardModal from '../CardModal';
 import { Draggable } from 'react-beautiful-dnd';
 
 const ListCard = styled.div`
   background-color: #fff;
-  border-radius: 3px;
   box-shadow: 0 1px 0 #091e4240;
   cursor: pointer;
   display: block;
@@ -25,7 +24,7 @@ const ListCard = styled.div`
 
 const ListDetails = styled.div`
   overflow: hidden;
-  padding: 6px 8px 2px;
+  padding: 6px 8px;
   position: relative;
   z-index: 10;
 `;
@@ -35,15 +34,21 @@ const ListTitle = styled.div`
   clear: both;
   color: #172b4d;
   display: block;
-  margin: 0 0 4px;
   overflow: hidden;
   text-decoration: none;
+`;
+
+const Thumb = styled.div`
+  height: 100px;
+  width: 100px;
+  background-size: cover;
+  display: inline-block;
 `;
 
 interface RecordProps extends RecordType {
   index: number;
 }
-const Record: FC<RecordProps> = ({ title, id, index }) => {
+const Record: FC<RecordProps> = ({ title, id, index, cover_image }) => {
   const [entered, setEntered] = useState(false);
   const clickHandler = () => {
     setEntered(true);
@@ -63,6 +68,7 @@ const Record: FC<RecordProps> = ({ title, id, index }) => {
             onClick={clickHandler}
           >
             <ListDetails>
+              <Thumb style={{ backgroundImage: `url(${cover_image})` }} />
               <ListTitle>{title}</ListTitle>
             </ListDetails>
           </ListCard>

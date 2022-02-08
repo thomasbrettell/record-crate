@@ -18,12 +18,11 @@ export const Wrapper = styled.div`
   margin: 0 4px;
   vertical-align: top;
   white-space: nowrap;
-  width: 272px;
+  width: 300px;
 `;
 
 export const Content = styled.div`
   background-color: #ebecf0;
-  border-radius: 3px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -167,6 +166,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
                           title={record.title}
                           id={record.id}
                           index={i}
+                          cover_image={record.cover_image}
                         />
                       );
                     })}

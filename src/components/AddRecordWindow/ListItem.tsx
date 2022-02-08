@@ -58,6 +58,7 @@ const ListItem: FC<ListItemProps> = ({
     const newRecord = push(recordsRef, {
       title: title,
       discogsId: id,
+      cover_image: cover_image,
     });
     set(recordIdsRef, [
       ...(boardData.crates[crateId].recordIds || []),

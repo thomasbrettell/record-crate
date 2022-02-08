@@ -16,6 +16,8 @@ interface QueryListProps {
 const QueryList: FC<QueryListProps> = ({ catno, crateId, onClose }) => {
   const { response, isLoading } = useCatNo(catno);
 
+  console.log(response)
+
   return (
     <List>
       {isLoading && <pre>Loading...</pre>}

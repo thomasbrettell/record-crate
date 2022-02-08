@@ -18,4 +18,5 @@ export interface CrateType {
 export interface RecordType {
   title: string;
   id: string;
+  cover_image: string;
 }
