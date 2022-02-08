@@ -3,8 +3,8 @@ import Record from '../Record';
 import { CrateType } from '../../types';
 import Composer from './Composer';
 import { ChangeEvent, useContext } from 'react';
-// import { update, ref } from 'firebase/database';
-// import { database } from '../../firebaseClient';
+import { set, ref } from 'firebase/database';
+import { database } from '../../firebaseClient';
 import { BoardDataCtx } from '../..';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
@@ -75,13 +75,11 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
   const { state: boardData } = useContext(BoardDataCtx);
 
   const renameHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    // const listRef = ref(
-    //   database,
-    //   `boards/${process.env.REACT_APP_ENV}-board/lists/${index}`
-    // );
-    // update(listRef, {
-    //   title: e.target.value,
-    // });
+    const crateTitleRef = ref(
+      database,
+      `boards/${boardData.id}/crates/${id}/title`
+    );
+    set(crateTitleRef, e.target.value);
   };
 
   return (
@@ -92,25 +90,26 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
             <Header>
               <Textarea defaultValue={title} onBlur={renameHandler}></Textarea>
             </Header>
-            <Droppable droppableId={id} direction='vertical' type='record'>
+            <Droppable droppableId={id} direction="vertical" type="record">
               {(provided) => (
                 <CrateList {...provided.droppableProps} ref={provided.innerRef}>
-                  {recordIds && recordIds.map((recordId, i) => {
-                    const record = boardData.records[recordId];
-                    return (
-                      <Record
-                        key={record.id}
-                        title={record.title}
-                        id={record.id}
-                        index={i}
-                      />
-                    );
-                  })}
+                  {recordIds &&
+                    recordIds.map((recordId, i) => {
+                      const record = boardData.records[recordId];
+                      return (
+                        <Record
+                          key={record.id}
+                          title={record.title}
+                          id={record.id}
+                          index={i}
+                        />
+                      );
+                    })}
                   {provided.placeholder}
                 </CrateList>
               )}
             </Droppable>
-            <Composer listIndex={1} />
+            <Composer crateId={id} />
           </Content>
         </Wrapper>
       )}

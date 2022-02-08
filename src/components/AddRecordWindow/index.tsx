@@ -18,9 +18,9 @@ const Form = styled.form`
 `;
 
 interface AddRecordWindowProps {
-  listIndex: number;
+  crateId: string;
 }
-const AddRecordWindow: FC<AddRecordWindowProps> = ({ listIndex }) => {
+const AddRecordWindow: FC<AddRecordWindowProps> = ({ crateId }) => {
   const [catno, setCatno] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const submitHandler = (e: FormEvent) => {
@@ -38,7 +38,7 @@ const AddRecordWindow: FC<AddRecordWindowProps> = ({ listIndex }) => {
         <input ref={inputRef} />
         <button type='submit'>Search</button>
       </Form>
-      {catno && <QueryList catno={catno} listIndex={listIndex} />}
+      {catno && <QueryList catno={catno} crateId={crateId} />}
     </Window>
   );
 };

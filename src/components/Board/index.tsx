@@ -4,6 +4,8 @@ import AddListButton from './AddListButton';
 import { useContext } from 'react';
 import { BoardDataCtx } from '../..';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
+import { ref, set } from 'firebase/database';
+import { database } from '../../firebaseClient';
 
 const Box = styled.div`
   bottom: 0;
@@ -29,14 +31,14 @@ const Wrapper = styled.div`
 `;
 
 const Board = () => {
-  const { state: boardData, update: setBoardData } = useContext(BoardDataCtx);
+  const { state: boardData } = useContext(BoardDataCtx);
   const onDragEnd = ({
     destination,
     source,
     draggableId,
     type,
   }: DropResult) => {
-    if (!destination) return;
+    if (!destination || !boardData.crateOrder) return;
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
@@ -44,10 +46,11 @@ const Board = () => {
       return;
     }
     if (type === 'crate') {
+      const crateOrderRef = ref(database, `boards/${boardData.id}/crateOrder`);
       const newCrateOrder = Array.from(boardData.crateOrder);
       newCrateOrder.splice(source.index, 1);
       newCrateOrder.splice(destination.index, 0, draggableId);
-      setBoardData({ ...boardData, crateOrder: newCrateOrder });
+      set(crateOrderRef, newCrateOrder);
     } else if (type === 'record') {
       console.log(source, destination);
     }
@@ -59,18 +62,19 @@ const Board = () => {
         <Droppable droppableId="all-crates" direction="horizontal" type="crate">
           {(provided) => (
             <Box {...provided.droppableProps} ref={provided.innerRef}>
-              {boardData.crateOrder && boardData.crateOrder.map((crateId, i) => {
-                const crate = boardData.crates[crateId];
-                return (
-                  <Crate
-                    key={crate.id}
-                    title={crate.title}
-                    id={crate.id}
-                    recordIds={crate.recordIds}
-                    index={i}
-                  />
-                );
-              })}
+              {boardData.crateOrder &&
+                boardData.crateOrder.map((crateId, i) => {
+                  const crate = boardData.crates[crateId];
+                  return (
+                    <Crate
+                      key={crate.id}
+                      title={crate.title}
+                      id={crate.id}
+                      recordIds={crate.recordIds}
+                      index={i}
+                    />
+                  );
+                })}
               {provided.placeholder}
               <AddListButton />
             </Box>

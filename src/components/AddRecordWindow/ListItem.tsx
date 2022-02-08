@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
-import { set, ref, child } from 'firebase/database';
+import { set, ref, child, push, update } from 'firebase/database';
 import { BoardDataCtx } from '../..';
 import { database } from '../../firebaseClient';
 
@@ -37,35 +37,41 @@ interface ListItemProps {
   title: string;
   cover_image: string;
   id: string;
-  listIndex: number;
+  crateId: string;
 }
 const ListItem: FC<ListItemProps> = ({
   uri,
   title,
   cover_image,
   id,
-  listIndex,
+  crateId,
 }) => {
   const { state: boardData } = useContext(BoardDataCtx);
   const addRecordHandler = () => {
-    // if (!boardData || !boardData.lists) return;
-    // const nextCardIndex = boardData.lists[listIndex].cards?.length || 0;
-    // const listRef = ref(
-    //   database,
-    //   `boards/${process.env.REACT_APP_ENV}-board/lists/${listIndex}`
-    // );
-    // set(child(listRef, `cards/${nextCardIndex}`), {
-    //   title: title,
-    //   id: id,
-    // });
+    const recordIdsRef = ref(
+      database,
+      `boards/${boardData.id}/crates/${crateId}/recordIds`
+    );
+    const recordsRef = ref(database, `boards/${boardData.id}/records`);
+    const newRecord = push(recordsRef, {
+      title: title,
+      discogsId: id,
+    });
+    update(newRecord, {
+      id: newRecord.key,
+    });
+    set(recordIdsRef, [
+      ...(boardData.crates[crateId].recordIds || []),
+      newRecord.key,
+    ]);
   };
   return (
     <Item>
       <Left>
         <Image style={{ backgroundImage: `url(${cover_image})` }} />
         <a
-          target='_blank'
-          rel='noreferrer'
+          target="_blank"
+          rel="noreferrer"
           href={`https://www.discogs.com${uri}`}
         >
           {title}

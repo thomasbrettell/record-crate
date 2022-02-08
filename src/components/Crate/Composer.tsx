@@ -32,9 +32,9 @@ const AddButton = styled.button`
 `;
 
 interface ComposerProps {
-  listIndex: number;
+  crateId: string;
 }
-const Composer: FC<ComposerProps> = ({ listIndex }) => {
+const Composer: FC<ComposerProps> = ({ crateId }) => {
   const [entered, setEntered] = useState(false);
   return (
     <>
@@ -43,7 +43,7 @@ const Composer: FC<ComposerProps> = ({ listIndex }) => {
       </Box>
       {entered && (
         <CardModal onClose={() => setEntered(false)}>
-          <AddRecordWindow listIndex={listIndex} />
+          <AddRecordWindow crateId={crateId} />
         </CardModal>
       )}
     </>

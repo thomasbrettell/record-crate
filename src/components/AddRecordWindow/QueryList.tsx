@@ -10,9 +10,9 @@ const List = styled.div`
 
 interface QueryListProps {
   catno: string;
-  listIndex: number;
+  crateId: string;
 }
-const QueryList: FC<QueryListProps> = ({ catno, listIndex }) => {
+const QueryList: FC<QueryListProps> = ({ catno, crateId }) => {
   const { response, isLoading } = useCatNo(catno);
 
   return (
@@ -27,7 +27,7 @@ const QueryList: FC<QueryListProps> = ({ catno, listIndex }) => {
             uri={release.uri}
             cover_image={release.cover_image}
             id={release.id}
-            listIndex={listIndex}
+            crateId={crateId}
           />
         ))}
     </List>

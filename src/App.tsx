@@ -1,10 +1,11 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import Board from './components/Board';
 import { database } from './firebaseClient';
 import { ref, onValue, set } from 'firebase/database';
 import { BoardDataCtx } from '.';
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const { state: boardData, update: setBoardData } = useContext(BoardDataCtx);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ function App() {
       onValue(boardRef, (snapshot) => {
         const data = snapshot.val();
         setBoardData(data);
+        if (loading) setLoading(false);
         if (!data) {
           set(boardRef, {
             id: `${process.env.REACT_APP_ENV}-board`,
@@ -24,9 +26,9 @@ function App() {
       });
     };
     fetchData();
-  }, [setBoardData]);
+  }, [setBoardData, loading]);
 
-  if (!boardData) {
+  if (loading) {
     return <pre>Loading...</pre>;
   }
 
