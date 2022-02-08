@@ -1,7 +1,7 @@
 import { useEffect, useContext } from 'react';
 import Board from './components/Board';
 import { database } from './firebaseClient';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, set } from 'firebase/database';
 import { BoardDataCtx } from '.';
 
 function App() {
@@ -16,6 +16,11 @@ function App() {
       onValue(boardRef, (snapshot) => {
         const data = snapshot.val();
         setBoardData(data);
+        if (!data) {
+          set(boardRef, {
+            id: `${process.env.REACT_APP_ENV}-board`,
+          });
+        }
       });
     };
     fetchData();

@@ -1,17 +1,18 @@
 export interface BoardType {
-  crateOrder: string[];
+  crateOrder: string[] | null;
   crates: {
     [id: string]: CrateType;
   };
   records: {
     [id: string]: RecordType;
   };
+  id: string;
 }
 
 export interface CrateType {
   title: string;
   id: string;
-  recordIds: string[];
+  recordIds: string[] | null;
 }
 
 export interface RecordType {

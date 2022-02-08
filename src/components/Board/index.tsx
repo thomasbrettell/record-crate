@@ -35,10 +35,10 @@ const Board = () => {
   return (
     <Wrapper>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId='all-crates' direction='horizontal' type='crate'>
+        <Droppable droppableId="all-crates" direction="horizontal" type="crate">
           {(provided) => (
             <Box {...provided.droppableProps} ref={provided.innerRef}>
-              {boardData.crateOrder.map((crateId, i) => {
+              {boardData.crateOrder && boardData.crateOrder.map((crateId, i) => {
                 const crate = boardData.crates[crateId];
                 return (
                   <Crate

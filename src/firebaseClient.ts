@@ -14,7 +14,7 @@ const app = initializeApp(config);
 
 export const database = getDatabase(app);
 
-if (window.location.hostname === 'localhost') {
+if (window.location.hostname === 'localhost' && process.env.REACT_APP_ENV === 'local') {
   connectDatabaseEmulator(database, 'localhost', 9000);
 }
 

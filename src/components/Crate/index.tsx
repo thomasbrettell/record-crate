@@ -3,8 +3,8 @@ import Record from '../Record';
 import { CrateType } from '../../types';
 import Composer from './Composer';
 import { ChangeEvent, useContext } from 'react';
-import { update, ref } from 'firebase/database';
-import { database } from '../../firebaseClient';
+// import { update, ref } from 'firebase/database';
+// import { database } from '../../firebaseClient';
 import { BoardDataCtx } from '../..';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
@@ -103,7 +103,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
             <Droppable droppableId={`${id}-records`} direction='vertical'>
               {(provided) => (
                 <CrateList {...provided.droppableProps} ref={provided.innerRef}>
-                  {recordIds.map((recordId, i) => {
+                  {recordIds && recordIds.map((recordId, i) => {
                     const record = boardData.records[recordId];
                     return (
                       <Record

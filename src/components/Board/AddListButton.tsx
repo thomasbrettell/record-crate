@@ -2,9 +2,8 @@ import { useRef, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Wrapper } from '../Crate';
 import { database } from '../../firebaseClient';
-import { ref, set, child } from 'firebase/database';
+import { ref, set, push, update } from 'firebase/database';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
-import getTimeEpoch from '../../util/getTimeEpoch';
 import { BoardDataCtx } from '../../index';
 
 interface ButtonWrapperProps {
@@ -53,18 +52,16 @@ const AddListButton = () => {
   const buttonRef = useRef(null);
 
   const addListHandler = () => {
-    // const listsRef = ref(
-    //   database,
-    //   `boards/${process.env.REACT_APP_ENV}-board/lists`
-    // );
-    // if (!boardData) return;
-    // const nextListIndex = boardData.lists?.length || 0;
-    // set(child(listsRef, nextListIndex.toString()), {
-    //   title: listName,
-    //   cards: [],
-    //   id: `l-${getTimeEpoch()}`,
-    // });
-    // setListName('');
+    const crateOrderRef = ref(database, `boards/${boardData.id}/crateOrder`);
+    const cratesRef = ref(database, `boards/${boardData.id}/crates`);
+    const newCrate = push(cratesRef, {
+      title: listName,
+    });
+    update(newCrate, {
+      id: newCrate.key,
+    });
+    set(crateOrderRef, [...(boardData.crateOrder || []), newCrate.key]);
+    setListName('');
   };
 
   const clickOutsideHandler = () => {

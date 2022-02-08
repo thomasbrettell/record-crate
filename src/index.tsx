@@ -10,6 +10,7 @@ const initialState: BoardType = {
   crateOrder: [],
   crates: {},
   records: {},
+  id: '',
 };
 export const [BoardDataCtx, BoardDataProvider] =
   createCtx<BoardType>(initialState);

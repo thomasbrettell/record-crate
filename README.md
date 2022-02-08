@@ -1,3 +1,5 @@
+# Todo
+- [ ] migrate away from store the id and instead just use the key
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
