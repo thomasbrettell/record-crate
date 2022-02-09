@@ -4,6 +4,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Setting up the emulators/local env
+- add a .env
+  - see .env.example 
+  - set process.env.ENV to 'local' to use firebase emulators
+  - add firebase app credentials
+  - youll need a discogs api key
+- have the firebase cli (if you dont already)
+- authenticate your firebase cli (if you havent already)
+- install java (if you havent aleady)
+
 ## Available Scripts
 
 In the project directory, you can run:

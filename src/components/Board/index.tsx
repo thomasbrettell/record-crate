@@ -102,9 +102,9 @@ const Board = () => {
                     const crate = boardData.crates[crateId];
                     return (
                       <Crate
-                        key={crate.id}
+                        key={crateId}
                         title={crate.title}
-                        id={crate.id}
+                        id={crateId}
                         recordIds={crate.recordIds}
                         index={i}
                       />

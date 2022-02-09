@@ -36,6 +36,7 @@ interface ListItemProps {
   uri: string;
   title: string;
   cover_image: string;
+  resource_url: string;
   id: string;
   crateId: string;
   onClose: () => void;
@@ -46,17 +47,22 @@ const ListItem: FC<ListItemProps> = ({
   cover_image,
   id,
   crateId,
+  resource_url,
   onClose,
 }) => {
   const { state: boardData } = useContext(BoardDataCtx);
-  const addRecordHandler = () => {
+  const addRecordHandler = async () => {
+    const response = await fetch(resource_url)
+    const releaseData = await response.json()
+    console.log(releaseData)
     const recordIdsRef = ref(
       database,
       `boards/${boardData.id}/crates/${crateId}/recordIds`
     );
     const recordsRef = ref(database, `boards/${boardData.id}/records`);
     const newRecord = push(recordsRef, {
-      title: title,
+      title: releaseData.title,
+      artist: releaseData.artists.map((artist: any) => artist.name).join(', '),
       discogsId: id,
       cover_image: cover_image,
     });
@@ -64,9 +70,6 @@ const ListItem: FC<ListItemProps> = ({
       ...(boardData.crates[crateId].recordIds || []),
       newRecord.key,
     ]);
-    update(newRecord, {
-      id: newRecord.key,
-    });
     onClose();
   };
   return (

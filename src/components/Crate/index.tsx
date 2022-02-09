@@ -154,7 +154,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
                 <ClickBlocker onClick={textareaEnterHandler} />
               )}
             </Header>
-            <Droppable droppableId={id} direction='vertical' type='record'>
+            <Droppable droppableId={id} direction="vertical" type="record">
               {(provided) => (
                 <CrateList {...provided.droppableProps} ref={provided.innerRef}>
                   {recordIds &&
@@ -162,11 +162,13 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
                       const record = boardData.records[recordId];
                       return (
                         <Record
-                          key={record.id}
+                          key={recordId}
                           title={record.title}
-                          id={record.id}
+                          id={recordId}
                           index={i}
                           cover_image={record.cover_image}
+                          artist={record.artist}
+                          discogsId={record.discogsId}
                         />
                       );
                     })}

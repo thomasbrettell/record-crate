@@ -59,9 +59,6 @@ const AddListButton = () => {
       title: listName,
     });
     set(crateOrderRef, [...(boardData.crateOrder || []), newCrate.key]);
-    update(newCrate, {
-      id: newCrate.key,
-    });
     setListName('');
   };
 

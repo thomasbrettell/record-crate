@@ -16,7 +16,7 @@ interface QueryListProps {
 const QueryList: FC<QueryListProps> = ({ catno, crateId, onClose }) => {
   const { response, isLoading } = useCatNo(catno);
 
-  console.log(response)
+  console.log(response);
 
   return (
     <List>
@@ -31,6 +31,7 @@ const QueryList: FC<QueryListProps> = ({ catno, crateId, onClose }) => {
             cover_image={release.cover_image}
             id={release.id}
             crateId={crateId}
+            resource_url={release.resource_url}
             onClose={onClose}
           />
         ))}

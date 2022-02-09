@@ -1,20 +1,10 @@
 import { useState, useEffect } from 'react';
 
 interface DiscogsRelease {
-  country: string;
   title: string;
-  id: string;
-  uri: string;
-  cover_image: string;
-  resource_url: string;
 }
-
-interface DiscogsDBQuery {
-  results: DiscogsRelease[];
-}
-
-const useCatNo = (catno: string) => {
-  const [response, setResponse] = useState<null | DiscogsDBQuery>(null);
+const useCatNo = (release_id: string | number) => {
+  const [response, setResponse] = useState<DiscogsRelease | null>(null);
   const [error, setError] = useState<Error | null>();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,9 +14,9 @@ const useCatNo = (catno: string) => {
     (async () => {
       try {
         const response = await fetch(
-          `https://api.discogs.com/database/search?type=release&catno=${catno}&token=${process.env.REACT_APP_DISCOGS_API_KEY}`
+          `https://api.discogs.com/releases/${release_id}`
         );
-        const data: DiscogsDBQuery = await response?.json();
+        const data: DiscogsRelease = await response?.json();
         setResponse(data);
         setIsLoading(false);
       } catch (error: any) {
@@ -40,7 +30,7 @@ const useCatNo = (catno: string) => {
     return () => {
       abortController.abort();
     };
-  }, [catno]);
+  }, [release_id]);
 
   return { response, error, isLoading };
 };

@@ -1,17 +1,7 @@
 import { FormEvent, useRef, useState, FC } from 'react';
 import styled from 'styled-components';
 import QueryList from './QueryList';
-
-const Window = styled.div`
-  background-color: #f4f5f7;
-  border-radius: 2px;
-  margin: 48px 0 80px;
-  overflow: hidden;
-  position: relative;
-  width: 768px;
-  z-index: 25;
-  padding: 20px;
-`;
+import ModalWindow from '../UI/ModalWindow';
 
 const Form = styled.form`
   margin-bottom: 20px;
@@ -34,13 +24,13 @@ const AddRecordWindow: FC<AddRecordWindowProps> = ({ crateId, onClose }) => {
   };
 
   return (
-    <Window>
+    <ModalWindow>
       <Form onSubmit={submitHandler}>
-        <input ref={inputRef} />
-        <button type='submit'>Search</button>
+        <input ref={inputRef} placeholder="Enter cat number" type="text" />
+        <button type="submit">Search</button>
       </Form>
       {catno && <QueryList catno={catno} crateId={crateId} onClose={onClose} />}
-    </Window>
+    </ModalWindow>
   );
 };
 

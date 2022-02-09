@@ -19,4 +19,6 @@ export interface RecordType {
   title: string;
   id: string;
   cover_image: string;
+  artist: string;
+  discogsId: string | number;
 }

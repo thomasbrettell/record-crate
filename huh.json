@@ -1,0 +1,387 @@
+{
+  "id": 3864468,
+  "status": "Accepted",
+  "year": 1980,
+  "resource_url": "https://api.discogs.com/releases/3864468",
+  "uri": "https://www.discogs.com/release/3864468-The-Durutti-Column-The-Return-Of-The-Durutti-Column",
+  "artists": [
+    {
+      "name": "The Durutti Column",
+      "anv": "",
+      "join": "",
+      "role": "",
+      "tracks": "",
+      "id": 637432,
+      "resource_url": "https://api.discogs.com/artists/637432"
+    }
+  ],
+  "artists_sort": "Durutti Column, The",
+  "labels": [
+    {
+      "name": "Factory",
+      "catno": "FACT 14",
+      "entity_type": "1",
+      "entity_type_name": "Label",
+      "id": 857,
+      "resource_url": "https://api.discogs.com/labels/857"
+    }
+  ],
+  "series": [],
+  "companies": [
+    {
+      "name": "Factory Records (5)",
+      "catno": "",
+      "entity_type": "13",
+      "entity_type_name": "Phonographic Copyright (p)",
+      "id": 265391,
+      "resource_url": "https://api.discogs.com/labels/265391"
+    },
+    {
+      "name": "Factory Records (5)",
+      "catno": "",
+      "entity_type": "14",
+      "entity_type_name": "Copyright (c)",
+      "id": 265391,
+      "resource_url": "https://api.discogs.com/labels/265391"
+    },
+    {
+      "name": "Cargo Studios",
+      "catno": "",
+      "entity_type": "23",
+      "entity_type_name": "Recorded At",
+      "id": 264408,
+      "resource_url": "https://api.discogs.com/labels/264408"
+    },
+    {
+      "name": "Strawberry Studios",
+      "catno": "",
+      "entity_type": "27",
+      "entity_type_name": "Mixed At",
+      "id": 264501,
+      "resource_url": "https://api.discogs.com/labels/264501"
+    },
+    {
+      "name": "Movement Of 24th January",
+      "catno": "",
+      "entity_type": "21",
+      "entity_type_name": "Published By",
+      "id": 264857,
+      "resource_url": "https://api.discogs.com/labels/264857"
+    }
+  ],
+  "formats": [
+    {
+      "name": "Vinyl",
+      "qty": "1",
+      "descriptions": [
+        "LP",
+        "Album"
+      ]
+    }
+  ],
+  "data_quality": "Correct",
+  "community": {
+    "have": 54,
+    "want": 951,
+    "rating": {
+      "count": 10,
+      "average": 4.3
+    },
+    "submitter": {
+      "username": "record_cellar",
+      "resource_url": "https://api.discogs.com/users/record_cellar"
+    },
+    "contributors": [
+      {
+        "username": "record_cellar",
+        "resource_url": "https://api.discogs.com/users/record_cellar"
+      },
+      {
+        "username": "sebfact",
+        "resource_url": "https://api.discogs.com/users/sebfact"
+      },
+      {
+        "username": "Coincidence_vs_Fate",
+        "resource_url": "https://api.discogs.com/users/Coincidence_vs_Fate"
+      },
+      {
+        "username": "audio_atelier",
+        "resource_url": "https://api.discogs.com/users/audio_atelier"
+      },
+      {
+        "username": "Contempo",
+        "resource_url": "https://api.discogs.com/users/Contempo"
+      },
+      {
+        "username": "abecedarian",
+        "resource_url": "https://api.discogs.com/users/abecedarian"
+      },
+      {
+        "username": "DiscogsUpdateBot",
+        "resource_url": "https://api.discogs.com/users/DiscogsUpdateBot"
+      }
+    ],
+    "data_quality": "Correct",
+    "status": "Accepted"
+  },
+  "format_quantity": 1,
+  "date_added": "2012-09-11T00:54:15-07:00",
+  "date_changed": "2015-06-23T04:28:44-07:00",
+  "num_for_sale": 0,
+  "lowest_price": null,
+  "master_id": 6369,
+  "master_url": "https://api.discogs.com/masters/6369",
+  "title": "The Return Of The Durutti Column",
+  "country": "UK",
+  "released": "1980-01-00",
+  "notes": "First issue housed in a sleeve made of sandpaper. This issue has spray painted the album title \"The Return Of The Durutti Column\" instead of the cat# Fact 14.\r\n\r\nWithout flexi. \r\n\r\nAll sandpaper copies were stuck together and sprayed at Palatine Road by Joy Division  to earn some extra cash - although Ian Curtis did most of them as the other members were watching an adult film in an adjoining room.\r\n\r\nIn 'D' is in fact Sketch For Winter with different mix.",
+  "released_formatted": "Jan 1980",
+  "identifiers": [],
+  "videos": [
+    {
+      "uri": "https://www.youtube.com/watch?v=n8rv9AxbQgE",
+      "title": "The Durutti Column - Sketch For A Summer",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 183,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=zk0ac5IRMIw",
+      "title": "The Durutti Column - Madeline",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 186,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=554haeTyzk0",
+      "title": "The Durutti Column - Requiem For A Father",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 309,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=4hyp8kTdtuY",
+      "title": "The Durutti Column - Katherine",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 332,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=Bs2U84denHM",
+      "title": "The Durutti Column - Conduct",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 306,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=S0vMlSDqf8k",
+      "title": "The Durutti Column - Beginning",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 101,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=VI32VKd5ZNI",
+      "title": "The Durutti Column - Jazz",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 101,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=ChI0iy4Kyow",
+      "title": "Durutti Column - Sketch for Winter",
+      "description": "LP The Return Of The Durutti Column Oct 1979 \r\nLabel Factory \r\nProducer - Martin Hannett",
+      "duration": 148,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=g54Bfg296R8",
+      "title": "The Durutti Column - Collette",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 144,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=j3uPpld2Pbw",
+      "title": "The Durutti Column - In D",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 148,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=unjt0uxq8DM",
+      "title": "The Durutti Column - Lips That Would Kiss",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 229,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=UF65cps6EUQ",
+      "title": "The Durutti Column - The First Aspect Of The Same Thing",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 225,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=ohegbdWdD-o",
+      "title": "The Durutti Column - The Second Aspect Of The Same Thing",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 180,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=17XIctqApVM",
+      "title": "The Durutti Column - Sleep Will Come",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 108,
+      "embed": true
+    },
+    {
+      "uri": "https://www.youtube.com/watch?v=fJmB2DbLkZU",
+      "title": "The Durutti Column - Experiment In Fifth",
+      "description": "The Durutti Column - The Return Of The Durutti Column, 1980",
+      "duration": 218,
+      "embed": true
+    }
+  ],
+  "genres": [
+    "Rock"
+  ],
+  "styles": [
+    "Avantgarde"
+  ],
+  "tracklist": [
+    {
+      "position": "A1",
+      "type_": "track",
+      "title": "Sketch For Summer",
+      "duration": "2:58"
+    },
+    {
+      "position": "A2",
+      "type_": "track",
+      "title": "Requiem For A Father",
+      "duration": "5:05"
+    },
+    {
+      "position": "A3",
+      "type_": "track",
+      "title": "Katharine",
+      "duration": "5:25"
+    },
+    {
+      "position": "A4",
+      "type_": "track",
+      "title": "Conduct",
+      "duration": "5:00"
+    },
+    {
+      "position": "B1",
+      "type_": "track",
+      "title": "Beginning",
+      "duration": "1:37"
+    },
+    {
+      "position": "B2",
+      "type_": "track",
+      "title": "Jazz",
+      "duration": "1:35"
+    },
+    {
+      "position": "B3",
+      "type_": "track",
+      "title": "Sketch For Winter",
+      "duration": "2:22"
+    },
+    {
+      "position": "B4",
+      "type_": "track",
+      "title": "Collette",
+      "duration": "2:20"
+    },
+    {
+      "position": "B5",
+      "type_": "track",
+      "title": "In 'D'",
+      "duration": "2:25"
+    }
+  ],
+  "extraartists": [
+    {
+      "name": "Anthony H. Wilson",
+      "anv": "",
+      "join": "",
+      "role": "Artwork [Uncredited]",
+      "tracks": "",
+      "id": 331381,
+      "resource_url": "https://api.discogs.com/artists/331381"
+    },
+    {
+      "name": "Pete Crooks (2)",
+      "anv": "",
+      "join": "",
+      "role": "Bass",
+      "tracks": "",
+      "id": 640740,
+      "resource_url": "https://api.discogs.com/artists/640740"
+    },
+    {
+      "name": "Toby Toman",
+      "anv": "Toby",
+      "join": "",
+      "role": "Drums",
+      "tracks": "",
+      "id": 713832,
+      "resource_url": "https://api.discogs.com/artists/713832"
+    },
+    {
+      "name": "Chris Nagle",
+      "anv": "",
+      "join": "",
+      "role": "Engineer",
+      "tracks": "",
+      "id": 126611,
+      "resource_url": "https://api.discogs.com/artists/126611"
+    },
+    {
+      "name": "John Brierley",
+      "anv": "",
+      "join": "",
+      "role": "Engineer",
+      "tracks": "",
+      "id": 309414,
+      "resource_url": "https://api.discogs.com/artists/309414"
+    },
+    {
+      "name": "Vini Reilly",
+      "anv": "",
+      "join": "",
+      "role": "Guitar, Written-By",
+      "tracks": "",
+      "id": 184877,
+      "resource_url": "https://api.discogs.com/artists/184877"
+    },
+    {
+      "name": "Martin Hannett",
+      "anv": "",
+      "join": "",
+      "role": "Producer",
+      "tracks": "",
+      "id": 80561,
+      "resource_url": "https://api.discogs.com/artists/80561"
+    }
+  ],
+  "images": [
+    {
+      "type": "primary",
+      "uri": "",
+      "resource_url": "",
+      "uri150": "",
+      "width": 563,
+      "height": 600
+    }
+  ],
+  "thumb": "",
+  "estimated_weight": 230,
+  "blocked_from_sale": false
+}

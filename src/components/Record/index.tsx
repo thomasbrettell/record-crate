@@ -3,6 +3,7 @@ import { RecordType } from '../../types';
 import { FC, useState } from 'react';
 import CardModal from '../CardModal';
 import { Draggable } from 'react-beautiful-dnd';
+import RecordWindow from './RecordWindow';
 
 const ListCard = styled.div`
   background-color: #fff;
@@ -10,7 +11,6 @@ const ListCard = styled.div`
   cursor: pointer;
   display: block;
   margin-bottom: 8px;
-  max-width: 300px;
   min-height: 20px;
   position: relative;
   text-decoration: none;
@@ -27,28 +27,56 @@ const ListDetails = styled.div`
   padding: 6px 8px;
   position: relative;
   z-index: 10;
+  display: flex;
 `;
 
-const ListTitle = styled.div`
+const Title = styled.div`
   word-wrap: break-word;
   clear: both;
   color: #172b4d;
   display: block;
   overflow: hidden;
   text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 7px;
 `;
 
+const Artist = styled.span``;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+  font-size: 12px;
+`;
+
+const thumbWidth = 40;
 const Thumb = styled.div`
-  height: 100px;
-  width: 100px;
+  min-width: ${thumbWidth}%;
   background-size: cover;
   display: inline-block;
+  width: 100%;
+  max-width: ${thumbWidth}%;
+
+  &:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
 `;
 
 interface RecordProps extends RecordType {
   index: number;
 }
-const Record: FC<RecordProps> = ({ title, id, index, cover_image }) => {
+const Record: FC<RecordProps> = ({
+  title,
+  id,
+  index,
+  cover_image,
+  artist,
+  discogsId,
+}) => {
   const [entered, setEntered] = useState(false);
   const clickHandler = () => {
     setEntered(true);
@@ -69,12 +97,19 @@ const Record: FC<RecordProps> = ({ title, id, index, cover_image }) => {
           >
             <ListDetails>
               <Thumb style={{ backgroundImage: `url(${cover_image})` }} />
-              <ListTitle>{title}</ListTitle>
+              <Content>
+                <Title>{title}</Title>
+                <Artist>{artist}</Artist>
+              </Content>
             </ListDetails>
           </ListCard>
         )}
       </Draggable>
-      {entered && <CardModal onClose={closeHandler} />}
+      {entered && (
+        <CardModal onClose={closeHandler}>
+          <RecordWindow discogsId={discogsId} cover_image={cover_image} />
+        </CardModal>
+      )}
     </>
   );
 };
