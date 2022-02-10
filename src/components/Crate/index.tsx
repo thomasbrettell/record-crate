@@ -10,6 +10,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import TextareaAutosize from 'react-textarea-autosize';
 import IconButton from '../UI/IconButton';
 import Close from '../Icons/Close';
+import { auth } from '../../firebaseClient';
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
@@ -131,6 +132,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
   };
 
   const textareaEnterHandler = () => {
+    if (!auth.currentUser) return;
     setTextareaEntered(true);
     textareaRef.current?.focus();
   };
@@ -146,20 +148,23 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
                 defaultValue={title}
                 onBlur={renameHandler}
               ></Textarea>
-              <DeleteButton
-                icon={<Close size={20} />}
-                onClick={deleteHandler}
-              />
+              {auth.currentUser && (
+                <DeleteButton
+                  icon={<Close size={20} />}
+                  onClick={deleteHandler}
+                />
+              )}
               {!textareaEntered && (
                 <ClickBlocker onClick={textareaEnterHandler} />
               )}
             </Header>
-            <Droppable droppableId={id} direction="vertical" type="record">
+            <Droppable droppableId={id} direction='vertical' type='record'>
               {(provided) => (
                 <CrateList {...provided.droppableProps} ref={provided.innerRef}>
                   {recordIds &&
                     recordIds.map((recordId, i) => {
                       const record = boardData.records[recordId];
+                      if (!record) return null;
                       return (
                         <Record
                           key={recordId}

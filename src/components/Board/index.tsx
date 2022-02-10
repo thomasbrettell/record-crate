@@ -100,6 +100,7 @@ const Board = () => {
                 {boardData.crateOrder &&
                   boardData.crateOrder.map((crateId, i) => {
                     const crate = boardData.crates[crateId];
+                    if (!crate) return null;
                     return (
                       <Crate
                         key={crateId}
