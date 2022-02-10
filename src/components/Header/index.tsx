@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../../firebaseClient';
 import { AuthCtx } from '../..';
+import Button from '../UI/Button';
+import Input from '../UI/Input';
 
 const Box = styled.header`
   padding: 6px 16px;
@@ -11,6 +13,7 @@ const Box = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 44px;
 `;
 
 const Title = styled.span`
@@ -23,6 +26,7 @@ const Header = () => {
 
   const signInHandler = (e: FormEvent) => {
     e.preventDefault();
+    if (!inputRef.current?.value.trim()) return;
     signInWithEmailAndPassword(
       auth,
       'admin@admin.com',
@@ -39,14 +43,14 @@ const Header = () => {
       <Title>DAHD's Records</Title>
       {!authState && (
         <form onSubmit={signInHandler}>
-          <input placeholder='Password' type='password' ref={inputRef} />
-          <button type='submit'>Sign in</button>
+          <Input placeholder="Password" type="password" ref={inputRef} />
+          <Button type="submit">Sign in</Button>
         </form>
       )}
       {authState && (
         <form onSubmit={signOutHandler}>
           Signed in
-          <button type='submit'>Sign out</button>
+          <Button type="submit">Sign out</Button>
         </form>
       )}
     </Box>

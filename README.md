@@ -1,6 +1,7 @@
 # Todo
-- [ ] migrate away from store the id and instead just use the key
-- [ ] frontend write prevention
+- [x] migrate away from store the id and instead just use the key
+- [ ] frontend write prevention (whats in place is probably good enough)
+- [ ] transition to chakra ui??
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
