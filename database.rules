@@ -1,6 +1,6 @@
 {
   "rules": {
     ".read": "true",
-    ".write": "auth.uid === 'go8U8fotGnmF26jYvTlZX2sUhx8r'", //this uid is only for my local emualtor... chill
+    ".write": "auth.uid === 'L0EEoHI0mWkbQZHLtZ6kk7SC3EQk'", //this uid is only for my local emualtor... chill
   }
 }

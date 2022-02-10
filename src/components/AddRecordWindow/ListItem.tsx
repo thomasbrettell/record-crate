@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import styled from 'styled-components';
-import { set, ref, push, update } from 'firebase/database';
+import { set, ref, push } from 'firebase/database';
 import { BoardDataCtx } from '../..';
 import { database } from '../../firebaseClient';
 
@@ -52,9 +52,9 @@ const ListItem: FC<ListItemProps> = ({
 }) => {
   const { state: boardData } = useContext(BoardDataCtx);
   const addRecordHandler = async () => {
-    const response = await fetch(resource_url)
-    const releaseData = await response.json()
-    console.log(releaseData)
+    const response = await fetch(resource_url);
+    const releaseData = await response.json();
+    console.log(releaseData);
     const recordIdsRef = ref(
       database,
       `boards/${boardData.id}/crates/${crateId}/recordIds`

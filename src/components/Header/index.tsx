@@ -1,24 +1,26 @@
 import { FormEvent, useRef, useContext } from 'react';
-import styled from 'styled-components';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../../firebaseClient';
 import { AuthCtx } from '../..';
-import Button from '../UI/Button';
-import Input from '../UI/Input';
+import {
+  Box,
+  StyleProps,
+  Text,
+  Input,
+  Button,
+  Flex,
+  HStack,
+} from '@chakra-ui/react';
 
-const Box = styled.header`
-  padding: 6px 16px;
-  background-color: #242424;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 44px;
-`;
-
-const Title = styled.span`
-  font-weight: 700;
-`;
+const HeaderStyles: StyleProps = {
+  display: 'flex',
+  padding: '0 16px',
+  backgroundColor: 'gray.900',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  minH: '44px',
+  maxH: '44px',
+};
 
 const Header = () => {
   const { state: authState } = useContext(AuthCtx);
@@ -39,19 +41,41 @@ const Header = () => {
   };
 
   return (
-    <Box>
-      <Title>DAHD's Records</Title>
+    <Box as='header' {...HeaderStyles}>
+      <Text fontWeight='bold' color='white'>
+        DAHD's Records
+      </Text>
       {!authState && (
-        <form onSubmit={signInHandler}>
-          <Input placeholder="Password" type="password" ref={inputRef} />
-          <Button type="submit">Sign in</Button>
-        </form>
+        <Flex as='form' onSubmit={signInHandler}>
+          <Input
+            placeholder='Password'
+            backgroundColor='gray.100'
+            size='xs'
+            type='password'
+            ref={inputRef}
+            borderRadius='md'
+            borderTopRightRadius='0'
+            borderBottomRightRadius='0'
+            w='auto'
+          />
+          <Button
+            type='submit'
+            size='xs'
+            borderTopLeftRadius='0'
+            borderBottomLeftRadius='0'
+            colorScheme='blue'
+          >
+            Sign in
+          </Button>
+        </Flex>
       )}
       {authState && (
-        <form onSubmit={signOutHandler}>
-          Signed in
-          <Button type="submit">Sign out</Button>
-        </form>
+        <HStack as='form' onSubmit={signOutHandler} color='white'>
+          <Text fontSize='xs' fontWeight='bold'>Signed in</Text>
+          <Button type='submit' size='xs' colorScheme='blue'>
+            Sign out
+          </Button>
+        </HStack>
       )}
     </Box>
   );

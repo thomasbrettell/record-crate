@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 import CardModal from '../CardModal';
 import { Draggable } from 'react-beautiful-dnd';
 import RecordWindow from './RecordWindow';
+import RecordImage from '../RecordImage';
 
 const ListCard = styled.div`
   background-color: #fff;
@@ -51,21 +52,6 @@ const Content = styled.div`
   font-size: 12px;
 `;
 
-const thumbWidth = 40;
-const Thumb = styled.div`
-  min-width: ${thumbWidth}%;
-  background-size: cover;
-  display: inline-block;
-  width: 100%;
-  max-width: ${thumbWidth}%;
-
-  &:after {
-    content: '';
-    display: block;
-    padding-bottom: 100%;
-  }
-`;
-
 interface RecordProps extends RecordType {
   index: number;
 }
@@ -96,7 +82,7 @@ const Record: FC<RecordProps> = ({
             onClick={clickHandler}
           >
             <ListDetails>
-              <Thumb style={{ backgroundImage: `url(${cover_image})` }} />
+              <RecordImage image={cover_image} width='100' />
               <Content>
                 <Title>{title}</Title>
                 <Artist>{artist}</Artist>

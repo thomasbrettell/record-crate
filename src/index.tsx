@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BoardType } from './types';
 import createCtx from './util/createCtx';
 import { User } from 'firebase/auth';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 const initialState: BoardType = {
   crateOrder: [],
@@ -18,11 +19,23 @@ export const [BoardDataCtx, BoardDataProvider] =
 
 export const [AuthCtx, AuthProvider] = createCtx<User | null>(null);
 
+const theme = extendTheme({
+  styles: {
+    global: {
+      'html, body': {
+        backgroundColor: 'blue.100',
+      },
+    },
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
       <BoardDataProvider>
-        <App />
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
       </BoardDataProvider>
     </AuthProvider>
   </React.StrictMode>,

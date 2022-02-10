@@ -108,7 +108,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
       database,
       `boards/${boardData.id}/crates/${id}/title`
     );
-    set(crateTitleRef, e.target.value);
+    set(crateTitleRef, e.target.value.trim());
     setTextareaEntered(false);
   };
 
