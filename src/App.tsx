@@ -6,6 +6,7 @@ import { BoardDataCtx } from '.';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebaseClient';
 import { AuthCtx } from '.';
+import { Spinner, Box } from '@chakra-ui/react';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,21 @@ function App() {
   }, [setBoardData, loading, setAuthState]);
 
   if (loading) {
-    return <pre>Loading...</pre>;
+    return (
+      <Box
+        position="absolute"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
+      >
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          color="blue.500"
+          size="xl"
+        />
+      </Box>
+    );
   }
 
   console.log(`Signed in: ${!!authState}`);

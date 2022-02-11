@@ -1,5 +1,7 @@
-import { Box, StyleProps, Text } from '@chakra-ui/react';
+import { Box, StyleProps, Text, Flex } from '@chakra-ui/react';
 import SignInForm from './SignInForm';
+import HeaderMenu from './HeaderMenu';
+import { auth } from '../../firebaseClient';
 
 const HeaderStyles: StyleProps = {
   display: 'flex',
@@ -13,11 +15,14 @@ const HeaderStyles: StyleProps = {
 
 const Header = () => {
   return (
-    <Box as='header' {...HeaderStyles}>
-      <Text fontWeight='bold' color='white'>
+    <Box as="header" {...HeaderStyles}>
+      <Text fontWeight="bold" color="white">
         DAHD's Records
       </Text>
-      <SignInForm />
+      <Flex alignItems="center">
+        <SignInForm />
+        {/* {auth.currentUser && <HeaderMenu />} */}
+      </Flex>
     </Box>
   );
 };

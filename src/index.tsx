@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BoardType } from './types';
@@ -24,6 +23,13 @@ const theme = extendTheme({
     global: {
       'html, body': {
         backgroundColor: 'blue.100',
+        overflow: 'hidden',
+        height: '100%',
+      },
+      '#root': {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
       },
     },
   },
