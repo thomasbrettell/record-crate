@@ -1,29 +1,18 @@
 import { FC } from 'react';
-import useCatNo from '../../hooks/useCatNo';
-import styled from 'styled-components';
 import ListItem from './ListItem';
-
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import { DiscogsDBQuery } from '../../types';
+import { Grid } from '@chakra-ui/react';
 
 interface QueryListProps {
-  catno: string;
   crateId: string;
   onClose: () => void;
+  releases: DiscogsDBQuery;
 }
-const QueryList: FC<QueryListProps> = ({ catno, crateId, onClose }) => {
-  const { response, isLoading } = useCatNo(catno);
-
-  console.log(response);
-
+const QueryList: FC<QueryListProps> = ({ crateId, onClose, releases }) => {
   return (
-    <List>
-      {isLoading && <pre>Loading...</pre>}
-      {!isLoading &&
-        response &&
-        response.results.map((release) => (
+    <Grid templateColumns='repeat(5, 1fr)' rowGap='8' columnGap='4'>
+      {releases &&
+        releases.results.map((release, i) => (
           <ListItem
             key={release.id}
             title={release.title}
@@ -33,9 +22,11 @@ const QueryList: FC<QueryListProps> = ({ catno, crateId, onClose }) => {
             crateId={crateId}
             resource_url={release.resource_url}
             onClose={onClose}
+            country={release.country}
+            year={release.year}
           />
         ))}
-    </List>
+    </Grid>
   );
 };
 

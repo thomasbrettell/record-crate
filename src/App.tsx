@@ -10,8 +10,8 @@ import { Spinner, Box } from '@chakra-ui/react';
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const { state: boardData, update: setBoardData } = useContext(BoardDataCtx);
-  const { state: authState, update: setAuthState } = useContext(AuthCtx);
+  const { update: setBoardData } = useContext(BoardDataCtx);
+  const { update: setAuthState } = useContext(AuthCtx);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,23 +41,18 @@ function App() {
   if (loading) {
     return (
       <Box
-        position="absolute"
-        top="50%"
-        left="50%"
-        transform="translate(-50%, -50%)"
+        position='absolute'
+        top='50%'
+        left='50%'
+        transform='translate(-50%, -50%)'
       >
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          color="blue.500"
-          size="xl"
-        />
+        <Spinner thickness='4px' speed='0.65s' color='blue.500' size='xl' />
       </Box>
     );
   }
 
-  console.log(`Signed in: ${!!authState}`);
-  console.log(boardData);
+  // console.log(`Signed in: ${!!authState}`);
+  // console.log(boardData);
 
   return <Board />;
 }

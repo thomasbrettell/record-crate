@@ -174,6 +174,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
                           cover_image={record.cover_image}
                           artist={record.artist}
                           discogsId={record.discogsId}
+                          isNew={record.isNew}
                         />
                       );
                     })}

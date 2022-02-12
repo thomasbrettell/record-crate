@@ -1,7 +1,7 @@
 import { Box, StyleProps, Text, Flex } from '@chakra-ui/react';
 import SignInForm from './SignInForm';
-import HeaderMenu from './HeaderMenu';
-import { auth } from '../../firebaseClient';
+// import HeaderMenu from './HeaderMenu';
+// import { auth } from '../../firebaseClient';
 
 const HeaderStyles: StyleProps = {
   display: 'flex',

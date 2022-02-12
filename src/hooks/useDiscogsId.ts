@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
+import { DiscogsRelease } from '../types';
 
-interface DiscogsRelease {
-  title: string;
-}
 const useCatNo = (release_id: string | number) => {
   const [response, setResponse] = useState<DiscogsRelease | null>(null);
   const [error, setError] = useState<Error | null>();

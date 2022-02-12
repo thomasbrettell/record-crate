@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import { RecordType } from '../../types';
-import { FC, useState } from 'react';
-import CardModal from '../CardModal';
+import { FC, useContext } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import RecordWindow from './RecordWindow';
 import RecordImage from '../RecordImage';
+import { useDisclosure } from '@chakra-ui/react';
+import { Badge } from '@chakra-ui/react';
+import { database } from '../../firebaseClient';
+import { ref, remove } from 'firebase/database';
+import { BoardDataCtx } from '../..';
 
 const ListCard = styled.div`
   background-color: #fff;
@@ -40,7 +44,7 @@ const Title = styled.div`
   text-decoration: none;
   font-weight: bold;
   font-size: 12px;
-  margin-bottom: 7px;
+  margin-bottom: 3px;
 `;
 
 const Artist = styled.span``;
@@ -62,13 +66,17 @@ const Record: FC<RecordProps> = ({
   cover_image,
   artist,
   discogsId,
+  isNew,
 }) => {
-  const [entered, setEntered] = useState(false);
-  const clickHandler = () => {
-    setEntered(true);
-  };
-  const closeHandler = () => {
-    setEntered(false);
+  const { state: boardData } = useContext(BoardDataCtx);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const interactHandler = () => {
+    onOpen();
+    const recordNewRec = ref(
+      database,
+      `boards/${boardData.id}/records/${id}/isNew`
+    );
+    remove(recordNewRec);
   };
 
   return (
@@ -79,22 +87,36 @@ const Record: FC<RecordProps> = ({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
-            onClick={clickHandler}
+            onClick={interactHandler}
           >
             <ListDetails>
-              <RecordImage image={cover_image} width='100' />
+              <RecordImage image={cover_image} width='100px' />
               <Content>
                 <Title>{title}</Title>
                 <Artist>{artist}</Artist>
               </Content>
+              {isNew && (
+                <Badge
+                  zIndex='2'
+                  position='absolute'
+                  top='1'
+                  left='1'
+                  colorScheme='green'
+                  variant='solid'
+                >
+                  New
+                </Badge>
+              )}
             </ListDetails>
           </ListCard>
         )}
       </Draggable>
-      {entered && (
-        <CardModal onClose={closeHandler}>
-          <RecordWindow discogsId={discogsId} cover_image={cover_image} />
-        </CardModal>
+      {isOpen && (
+        <RecordWindow
+          onClose={onClose}
+          discogsId={discogsId}
+          cover_image={cover_image}
+        />
       )}
     </>
   );

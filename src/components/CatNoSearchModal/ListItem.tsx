@@ -1,36 +1,10 @@
 import { FC, useContext } from 'react';
-import styled from 'styled-components';
 import { set, ref, push } from 'firebase/database';
 import { BoardDataCtx } from '../..';
 import { database } from '../../firebaseClient';
-
-const Item = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  & + & {
-    margin-top: 20px;
-  }
-`;
-
-const Image = styled.div`
-  background-color: grey;
-  width: 80px;
-  background-size: cover;
-  margin-right: 20px;
-  display: inline-block;
-  &:after {
-    content: '';
-    display: block;
-    padding-bottom: 100%;
-  }
-`;
-
-const Left = styled.div`
-  display: flex;
-  align-items: center;
-`;
+import { Text, Link, GridItem, IconButton } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
+import RecordImage from '../RecordImage';
 
 interface ListItemProps {
   uri: string;
@@ -39,6 +13,8 @@ interface ListItemProps {
   resource_url: string;
   id: string;
   crateId: string;
+  year: string | number;
+  country: string;
   onClose: () => void;
 }
 const ListItem: FC<ListItemProps> = ({
@@ -48,13 +24,15 @@ const ListItem: FC<ListItemProps> = ({
   id,
   crateId,
   resource_url,
+  year,
   onClose,
+  country,
 }) => {
   const { state: boardData } = useContext(BoardDataCtx);
+  const [rTitle, rArtist] = title.split(' - ', 2);
   const addRecordHandler = async () => {
     const response = await fetch(resource_url);
     const releaseData = await response.json();
-    console.log(releaseData);
     const recordIdsRef = ref(
       database,
       `boards/${boardData.id}/crates/${crateId}/recordIds`
@@ -65,6 +43,7 @@ const ListItem: FC<ListItemProps> = ({
       artist: releaseData.artists.map((artist: any) => artist.name).join(', '),
       discogsId: id,
       cover_image: cover_image,
+      isNew: true
     });
     set(recordIdsRef, [
       ...(boardData.crates[crateId].recordIds || []),
@@ -72,20 +51,37 @@ const ListItem: FC<ListItemProps> = ({
     ]);
     onClose();
   };
+
   return (
-    <Item>
-      <Left>
-        <Image style={{ backgroundImage: `url(${cover_image})` }} />
-        <a
-          target='_blank'
-          rel='noreferrer'
-          href={`https://www.discogs.com${uri}`}
-        >
-          {title}
-        </a>
-      </Left>
-      <button onClick={addRecordHandler}>Add to crate</button>
-    </Item>
+    <GridItem display='flex' flexDir='column' pos='relative'>
+      <RecordImage
+        image={cover_image}
+        width='full'
+        adStyles={{ marginBottom: '4px' }}
+      />
+      <Link
+        href={`https://www.discogs.com${uri}`}
+        fontSize='xs'
+        fontWeight='bold'
+        target='_blank'
+      >
+        {rTitle}
+        {(year || country) &&
+          ` (${year ? year : ''}${year && country ? ', ' : ''}${
+            country ? country : ''
+          })`}
+      </Link>
+      <IconButton
+        aria-label='add'
+        icon={<AddIcon />}
+        pos='absolute'
+        top='5px'
+        right='5px'
+        size='xs'
+        onClick={addRecordHandler}
+      />
+      <Text fontSize='xs'>{rArtist}</Text>
+    </GridItem>
   );
 };
 

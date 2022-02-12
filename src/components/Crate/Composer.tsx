@@ -1,6 +1,4 @@
-import { useState, FC } from 'react';
-import CardModal from '../CardModal';
-import AddRecordWindow from '../AddRecordWindow';
+import { FC } from 'react';
 import { Box, BoxProps } from '@chakra-ui/react';
 import { auth } from '../../firebaseClient';
 import CatNoSearchModal from '../CatNoSearchModal';
@@ -30,25 +28,17 @@ interface ComposerProps {
 }
 const Composer: FC<ComposerProps> = ({ crateId }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [entered, setEntered] = useState(false);
   if (!auth.currentUser) return null;
   return (
     <>
       <Box {...BoxStyles}>
-        <Box as="button" {...ButtonStyles} onClick={onOpen}>
+        <Box as='button' {...ButtonStyles} onClick={onOpen}>
           + Add a record
         </Box>
       </Box>
-      <CatNoSearchModal isOpen={isOpen} onClose={onClose} />
+      <CatNoSearchModal isOpen={isOpen} onClose={onClose} crateId={crateId} />
     </>
   );
 };
 
 export default Composer;
-
-// <CardModal onClose={() => setEntered(false)}>
-//   <AddRecordWindow
-//     crateId={crateId}
-//     onClose={() => setEntered(false)}
-//   />
-// </CardModal>
