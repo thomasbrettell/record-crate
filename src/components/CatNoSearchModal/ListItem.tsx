@@ -5,16 +5,10 @@ import { database } from '../../firebaseClient';
 import { Text, Link, GridItem, IconButton } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import RecordImage from '../RecordImage';
+import { DiscogsDBRelease } from '../../types';
 
-interface ListItemProps {
-  uri: string;
-  title: string;
-  cover_image: string;
-  resource_url: string;
-  id: string;
+interface ListItemProps extends DiscogsDBRelease {
   crateId: string;
-  year: string | number;
-  country: string;
   onClose: () => void;
 }
 const ListItem: FC<ListItemProps> = ({
@@ -23,27 +17,33 @@ const ListItem: FC<ListItemProps> = ({
   cover_image,
   id,
   crateId,
-  resource_url,
   year,
   onClose,
   country,
+  ...props
 }) => {
   const { state: boardData } = useContext(BoardDataCtx);
-  const [rTitle, rArtist] = title.split(' - ', 2);
+  const [rArtist, rTitle] = title.split(' - ', 2);
   const addRecordHandler = async () => {
-    const response = await fetch(resource_url);
-    const releaseData = await response.json();
     const recordIdsRef = ref(
       database,
       `boards/${boardData.id}/crates/${crateId}/recordIds`
     );
     const recordsRef = ref(database, `boards/${boardData.id}/records`);
     const newRecord = push(recordsRef, {
-      title: releaseData.title,
-      artist: releaseData.artists.map((artist: any) => artist.name).join(', '),
+      title: rTitle,
+      artist: rArtist,
       discogsId: id,
       cover_image: cover_image,
-      isNew: true
+      uri: uri,
+      label: props.label,
+      style: props.style,
+      catno: props.catno,
+      genre: props.genre,
+      format: props.format,
+      master_id: props.master_id,
+      year: year,
+      isNew: true,
     });
     set(recordIdsRef, [
       ...(boardData.crates[crateId].recordIds || []),

@@ -10,25 +10,19 @@ import {
   Link,
   Box,
 } from '@chakra-ui/react';
-import useDiscogsId from '../../hooks/useDiscogsId';
 import RecordImage from '../RecordImage';
+import { RecordType } from '../../types';
 
 interface RecordWindowProps {
-  discogsId: string | number;
-  cover_image: string;
+  record: RecordType;
   onClose: () => void;
 }
-const RecordWindow: FC<RecordWindowProps> = ({
-  discogsId,
-  cover_image,
-  onClose,
-}) => {
-  const { response } = useDiscogsId(discogsId);
-  if (!response) return null;
+const RecordWindow: FC<RecordWindowProps> = ({ record, onClose }) => {
+  const { cover_image, title, artist, uri, year, country, format } = record;
   return (
     <Modal isOpen={true} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent maxW='xl'>
+      <ModalContent maxW='900px'>
         <ModalHeader display='flex' paddingRight='55px'>
           <RecordImage
             image={cover_image}
@@ -38,17 +32,19 @@ const RecordWindow: FC<RecordWindowProps> = ({
           />
           <Box>
             <Link
-              href={response.uri}
+              href={`https://www.discogs.com${uri}`}
               target='_blank'
               display='block'
               fontWeight='black'
-              marginBottom='10px'
+              marginBottom='5px'
+              fontSize='xx-large'
             >
-              {response.title}
+              {title}
             </Link>
-            <Text fontSize='md'>
-              {response.artists.map((artist) => artist.name).join(', ')}
-            </Text>
+            <Text fontSize='lg' marginBottom='15px'>{artist}</Text>
+            {country && <Text fontSize='sm'>Country: {country}</Text>}
+            {year && <Text fontSize='sm'>Released: {year}</Text>}
+            {format && <Text fontSize='sm'>Format: {format.join(', ')}</Text>}
           </Box>
         </ModalHeader>
         <ModalBody></ModalBody>

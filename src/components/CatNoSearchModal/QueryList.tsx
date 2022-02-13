@@ -20,10 +20,15 @@ const QueryList: FC<QueryListProps> = ({ crateId, onClose, releases }) => {
             cover_image={release.cover_image}
             id={release.id}
             crateId={crateId}
-            resource_url={release.resource_url}
             onClose={onClose}
             country={release.country}
             year={release.year}
+            label={release.label}
+            style={release.style}
+            master_id={release.master_id}
+            format={release.format}
+            catno={release.catno}
+            genre={release.genre}
           />
         ))}
     </Grid>

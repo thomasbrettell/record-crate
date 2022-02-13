@@ -32,7 +32,7 @@ const CatNoSearchModal = ({
     clear();
     onClose();
   };
-  console.log(response);
+
   return (
     <Modal isOpen={isOpen} onClose={closeHandler}>
       <ModalOverlay />

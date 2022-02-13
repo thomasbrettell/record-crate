@@ -9,6 +9,7 @@ import { Badge } from '@chakra-ui/react';
 import { database } from '../../firebaseClient';
 import { ref, remove } from 'firebase/database';
 import { BoardDataCtx } from '../..';
+import { auth } from '../../firebaseClient';
 
 const ListCard = styled.div`
   background-color: #fff;
@@ -56,18 +57,13 @@ const Content = styled.div`
   font-size: 12px;
 `;
 
-interface RecordProps extends RecordType {
+interface RecordProps {
   index: number;
+  record: RecordType;
+  id: string;
 }
-const Record: FC<RecordProps> = ({
-  title,
-  id,
-  index,
-  cover_image,
-  artist,
-  discogsId,
-  isNew,
-}) => {
+const Record: FC<RecordProps> = ({ index, record, id }) => {
+  const { isNew, cover_image, title, artist } = record;
   const { state: boardData } = useContext(BoardDataCtx);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const interactHandler = () => {
@@ -76,7 +72,7 @@ const Record: FC<RecordProps> = ({
       database,
       `boards/${boardData.id}/records/${id}/isNew`
     );
-    remove(recordNewRec);
+    auth.currentUser && isNew && remove(recordNewRec);
   };
 
   return (
@@ -111,13 +107,7 @@ const Record: FC<RecordProps> = ({
           </ListCard>
         )}
       </Draggable>
-      {isOpen && (
-        <RecordWindow
-          onClose={onClose}
-          discogsId={discogsId}
-          cover_image={cover_image}
-        />
-      )}
+      {isOpen && <RecordWindow onClose={onClose} record={record} />}
     </>
   );
 };

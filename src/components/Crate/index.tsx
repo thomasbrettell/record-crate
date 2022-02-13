@@ -168,13 +168,9 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
                       return (
                         <Record
                           key={recordId}
-                          title={record.title}
-                          id={recordId}
                           index={i}
-                          cover_image={record.cover_image}
-                          artist={record.artist}
-                          discogsId={record.discogsId}
-                          isNew={record.isNew}
+                          record={record}
+                          id={recordId}
                         />
                       );
                     })}
