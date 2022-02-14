@@ -1,6 +1,10 @@
 {
   "rules": {
-    ".read": "true",
-    ".write": "auth.uid === 'L0EEoHI0mWkbQZHLtZ6kk7SC3EQk'", //this uid is only for my local emualtor... chill
+    "boards": {
+      "$board_id" : {
+        ".read": true,
+        ".write": "data.child('user_id').val() === auth.uid",
+      }
+    }
   }
 }

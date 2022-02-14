@@ -6,6 +6,7 @@ import { BoardType } from './types';
 import createCtx from './util/createCtx';
 import { User } from 'firebase/auth';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { BrowserRouter } from 'react-router-dom';
 
 const initialState: BoardType = {
   crateOrder: [],
@@ -28,8 +29,8 @@ const theme = extendTheme({
       },
       '#root': {
         height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
+        // display: 'flex',
+        // flexDirection: 'column',
       },
     },
   },
@@ -40,7 +41,9 @@ ReactDOM.render(
     <AuthProvider>
       <BoardDataProvider>
         <ChakraProvider theme={theme}>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ChakraProvider>
       </BoardDataProvider>
     </AuthProvider>
