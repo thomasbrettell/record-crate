@@ -1,8 +1,9 @@
 # Todo
 - [x] migrate away from store the id and instead just use the key
-- [ ] frontend write prevention (whats in place is probably good enough)
-- [ ] transition to chakra ui??
+- [x] frontend write prevention (whats in place is probably good enough)
+- [x] transition to chakra ui??
 - [ ] export csv functionality
+- [ ] better account validation (check name insnt taken and stuff like that)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

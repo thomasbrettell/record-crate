@@ -4,7 +4,10 @@
       "$board_id" : {
         ".read": true,
         ".write": "data.child('user_id').val() === auth.uid",
-      }
+      },
+    },
+    "users": {
+      ".write": true,
     }
   }
 }

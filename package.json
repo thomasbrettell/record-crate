@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "emulators": "firebase emulators:start --import=./emulator --export-on-exit",
-    "kill": "lsof -ti tcp:8080,9000 | xargs kill -9"
+    "kill": "lsof -ti tcp:8080,9000,4000 | xargs kill -9"
   },
   "eslintConfig": {
     "extends": [

@@ -6,16 +6,21 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
-import { withFormik, Form, FormikProps, Field } from 'formik';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { withFormik, Form, FormikProps, Field, FormikBag } from 'formik';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseClient';
 import { database } from '../firebaseClient';
 import { push, ref, update } from 'firebase/database';
+import { NavigateFunction } from 'react-router-dom';
 
 interface FormValues {
   password: string;
   email: string;
-  displayName: string;
+  userName: string;
+}
+
+interface SignUpFormProps {
+  navigate: NavigateFunction;
 }
 
 const SignupSchema = Yup.object().shape({
@@ -23,37 +28,41 @@ const SignupSchema = Yup.object().shape({
     .min(9, 'Password must be at least 9 characters')
     .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
-  displayName: Yup.string().required('Required'),
+  userName: Yup.string().required('Required'),
 });
 
-const submitHandler = async (values: FormValues) => {
+const submitHandler = async (
+  values: FormValues,
+  formikBag: FormikBag<SignUpFormProps, FormValues>
+) => {
   const newUserCreds = await createUserWithEmailAndPassword(
     auth,
     values.email,
     values.password
   );
-  updateProfile(newUserCreds.user, {
-    displayName: values.displayName,
-  });
   const boardsRef = ref(database, 'boards');
   const newBoardRef = push(boardsRef, {
     user_id: newUserCreds.user.uid,
   });
-  update(newBoardRef, {
+  await update(newBoardRef, {
     id: newBoardRef.key,
   });
   const newUserRef = ref(database, `users/${newUserCreds.user.uid}`);
-  update(newUserRef, {
+  await update(newUserRef, {
     board_id: newBoardRef.key,
+    uid: newUserCreds.user.uid,
+    email: newUserCreds.user.email,
+    name: values.userName,
   });
+  formikBag.props.navigate(`/${values.userName}`);
 };
 
-const SignUpForm = withFormik<{}, FormValues>({
+const SignUpForm = withFormik<SignUpFormProps, FormValues>({
   mapPropsToValues: () => {
     return {
       email: '',
       password: '',
-      displayName: '',
+      userName: '',
     };
   },
   validationSchema: SignupSchema,
@@ -62,34 +71,34 @@ const SignUpForm = withFormik<{}, FormValues>({
   return (
     <Form>
       <FormControl
-        marginBottom='20px'
-        isInvalid={!!(touched.displayName && errors.displayName)}
+        marginBottom="20px"
+        isInvalid={!!(touched.userName && errors.userName)}
       >
-        <FormLabel>Display Name</FormLabel>
-        <Field name='displayName' as={Input} />
-        <FormErrorMessage>{errors.displayName}</FormErrorMessage>
+        <FormLabel>User Name</FormLabel>
+        <Field name="userName" as={Input} />
+        <FormErrorMessage>{errors.userName}</FormErrorMessage>
       </FormControl>
       <FormControl
-        marginBottom='20px'
+        marginBottom="20px"
         isInvalid={!!(touched.email && errors.email)}
       >
         <FormLabel>Email</FormLabel>
-        <Field name='email' as={Input} />
+        <Field name="email" as={Input} />
         <FormErrorMessage>{errors.email}</FormErrorMessage>
       </FormControl>
       <FormControl
-        marginBottom='25px'
+        marginBottom="25px"
         isInvalid={!!(touched.password && errors.password)}
       >
         <FormLabel>Password</FormLabel>
-        <Field type='password' name='password' as={Input} />
+        <Field type="password" name="password" as={Input} />
         <FormErrorMessage>{errors.password}</FormErrorMessage>
       </FormControl>
       <FormControl>
         <Button
           isFullWidth
-          colorScheme='blue'
-          type='submit'
+          colorScheme="blue"
+          type="submit"
           isLoading={isSubmitting}
         >
           Sign up
