@@ -32,18 +32,18 @@ const ListItem: FC<ListItemProps> = ({
     );
     const recordsRef = ref(database, `boards/${boardData.id}/records`);
     const newRecord = push(recordsRef, {
-      title: rTitle,
-      artist: rArtist,
-      discogsId: id,
-      cover_image: cover_image,
-      uri: uri,
-      label: props.label,
-      style: props.style,
-      catno: props.catno,
-      genre: props.genre,
-      format: format,
-      master_id: props.master_id,
-      year: year,
+      title: rTitle || null,
+      artist: rArtist || null,
+      discogsId: id || null,
+      cover_image: cover_image || null,
+      uri: uri || null,
+      label: props.label || null,
+      style: props.style || null,
+      catno: props.catno || null,
+      genre: props.genre || null,
+      format: format || null,
+      master_id: props.master_id || null,
+      year: year || null,
       isNew: true,
     });
     set(recordIdsRef, [
