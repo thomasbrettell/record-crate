@@ -7,6 +7,7 @@ export interface BoardType {
     [id: string]: RecordType;
   };
   id: string;
+  user_id?: string;
 }
 
 export interface CrateType {

@@ -58,6 +58,7 @@ const AddListButton = () => {
   const addListHandler = (e: FormEvent) => {
     e.preventDefault();
     if (!listName) return;
+    console.log(boardData)
     const crateOrderRef = ref(database, `boards/${boardData.id}/crateOrder`);
     const cratesRef = ref(database, `boards/${boardData.id}/crates`);
     const newCrate = push(cratesRef, {
@@ -81,7 +82,7 @@ const AddListButton = () => {
 
   useOnClickOutside(buttonRef, clickOutsideHandler);
 
-  if (!auth.currentUser) return null;
+  if (!auth.currentUser || auth.currentUser?.uid !== boardData.user_id) return null;
   return (
     <ButtonWrapper entered={entered} ref={buttonRef}>
       {!entered && (

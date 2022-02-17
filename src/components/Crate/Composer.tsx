@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { Box, BoxProps } from '@chakra-ui/react';
 import { auth } from '../../firebaseClient';
 import CatNoSearchModal from '../CatNoSearchModal';
 import { useDisclosure } from '@chakra-ui/react';
+import { BoardDataCtx } from '../..';
 
 const BoxStyles: BoxProps = {
   display: 'flex',
@@ -28,11 +29,12 @@ interface ComposerProps {
 }
 const Composer: FC<ComposerProps> = ({ crateId }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  if (!auth.currentUser) return null;
+  const { state: boardData } = useContext(BoardDataCtx);
+  if (auth.currentUser?.uid !== boardData.user_id) return null;
   return (
     <>
       <Box {...BoxStyles}>
-        <Box as='button' {...ButtonStyles} onClick={onOpen}>
+        <Box as="button" {...ButtonStyles} onClick={onOpen}>
           + Add a record
         </Box>
       </Box>

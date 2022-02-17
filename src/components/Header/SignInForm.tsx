@@ -1,9 +1,11 @@
 import { auth } from '../../firebaseClient';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { Text, Input, Button, Flex, HStack } from '@chakra-ui/react';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { BoardDataCtx } from '../..';
 
 const SignInForm = () => {
+  const { state: boardData } = useContext(BoardDataCtx);
   const [error, setError] = useState(false);
   const [password, setPassword] = useState('');
   const signInHandler = (e: FormEvent) => {
@@ -26,7 +28,7 @@ const SignInForm = () => {
 
   return (
     <>
-      {!auth.currentUser && (
+      {auth.currentUser?.uid !== boardData.user_id && (
         <Flex as="form" onSubmit={signInHandler}>
           <Input
             placeholder="Password"
@@ -54,7 +56,7 @@ const SignInForm = () => {
           </Button>
         </Flex>
       )}
-      {auth.currentUser && (
+      {auth.currentUser && auth.currentUser.uid === boardData.user_id && (
         <HStack as="form" onSubmit={signOutHandler} color="white">
           <Text fontSize="xs" fontWeight="bold">
             Signed in

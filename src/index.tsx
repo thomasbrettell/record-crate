@@ -9,7 +9,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 
 const initialState: BoardType = {
-  crateOrder: [],
+  crateOrder: null,
   crates: {},
   records: {},
   id: '',

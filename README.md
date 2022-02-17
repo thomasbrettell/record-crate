@@ -4,6 +4,9 @@
 - [x] transition to chakra ui??
 - [ ] export csv functionality
 - [ ] better account validation (check name insnt taken and stuff like that)
+- [x] create account through admin sdk?
+- [ ] alert should show if there was an error during signup
+- [ ] the BoardType is wrong. needs to not allow for essentially all values
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

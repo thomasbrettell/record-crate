@@ -72,7 +72,7 @@ const Record: FC<RecordProps> = ({ index, record, id }) => {
       database,
       `boards/${boardData.id}/records/${id}/isNew`
     );
-    auth.currentUser && isNew && remove(recordNewRec);
+    auth.currentUser && auth.currentUser.uid === boardData.user_id && isNew && remove(recordNewRec);
   };
 
   return (

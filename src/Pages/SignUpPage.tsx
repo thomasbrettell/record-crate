@@ -6,7 +6,7 @@ import { functions } from '../firebaseClient';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const addMessage = httpsCallable(functions, "addMessage");
+  const setupNewUser = httpsCallable(functions, 'setupNewUser');
 
   return (
     <Box h="full" w="full" display="flex" padding="20px">
@@ -14,13 +14,7 @@ const SignUpPage = () => {
         <Text as="h1" fontSize="2xl" fontWeight="bold" marginBottom="20px">
           Sign up
         </Text>
-        <SignUpForm navigate={navigate} />
-        <button onClick={() => {
-          console.log('fUFC')
-          addMessage({text: 'text'}).then((result) => {
-            console.log(result)
-          })
-        }}>temp</button>
+        <SignUpForm navigate={navigate} setupNewUser={setupNewUser} />
       </Box>
     </Box>
   );

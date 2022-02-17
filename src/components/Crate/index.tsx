@@ -132,7 +132,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
   };
 
   const textareaEnterHandler = () => {
-    if (!auth.currentUser) return;
+    if (auth.currentUser?.uid !== boardData.user_id) return;
     setTextareaEntered(true);
     textareaRef.current?.focus();
   };
@@ -148,7 +148,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
                 defaultValue={title}
                 onBlur={renameHandler}
               ></Textarea>
-              {auth.currentUser && (
+              {auth.currentUser && auth.currentUser.uid === boardData.user_id && (
                 <DeleteButton
                   icon={<Close size={20} />}
                   onClick={deleteHandler}

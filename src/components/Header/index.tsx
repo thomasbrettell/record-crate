@@ -21,7 +21,7 @@ const Header = () => {
       </Text>
       <Flex alignItems="center">
         <SignInForm />
-        {/* {auth.currentUser && <HeaderMenu />} */}
+        {/* {auth.currentUser && auth.currentUser.uid === boardData.user_id && <HeaderMenu />} */}
       </Flex>
     </Box>
   );

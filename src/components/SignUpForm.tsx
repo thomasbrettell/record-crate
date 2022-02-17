@@ -9,8 +9,6 @@ import * as Yup from 'yup';
 import { withFormik, Form, FormikProps, Field, FormikBag } from 'formik';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseClient';
-import { database } from '../firebaseClient';
-import { push, ref, update } from 'firebase/database';
 import { NavigateFunction } from 'react-router-dom';
 
 interface FormValues {
@@ -21,6 +19,7 @@ interface FormValues {
 
 interface SignUpFormProps {
   navigate: NavigateFunction;
+  setupNewUser: Function;
 }
 
 const SignupSchema = Yup.object().shape({
@@ -35,25 +34,10 @@ const submitHandler = async (
   values: FormValues,
   formikBag: FormikBag<SignUpFormProps, FormValues>
 ) => {
-  const newUserCreds = await createUserWithEmailAndPassword(
-    auth,
-    values.email,
-    values.password
-  );
-  const boardsRef = ref(database, 'boards');
-  const newBoardRef = push(boardsRef, {
-    user_id: newUserCreds.user.uid,
-  });
-  await update(newBoardRef, {
-    id: newBoardRef.key,
-  });
-  const newUserRef = ref(database, `users/${newUserCreds.user.uid}`);
-  await update(newUserRef, {
-    board_id: newBoardRef.key,
-    uid: newUserCreds.user.uid,
-    email: newUserCreds.user.email,
-    name: values.userName,
-  });
+  await createUserWithEmailAndPassword(auth, values.email, values.password);
+
+  await formikBag.props.setupNewUser({ name: values.userName });
+
   formikBag.props.navigate(`/${values.userName}`);
 };
 

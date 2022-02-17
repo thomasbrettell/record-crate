@@ -7,7 +7,7 @@
       },
     },
     "users": {
-      ".write": true,
+      ".read": true,
     }
   }
 }
