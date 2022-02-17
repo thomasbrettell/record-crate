@@ -24,7 +24,7 @@ const BoardPage = () => {
       const allUsers = await (await get(ref(database, 'users'))).val(); //probs do this in a cf instead i guess?
       let targetBoardId = null;
       for (const userId in allUsers) {
-        if (allUsers[userId].name === params.username) {
+        if (allUsers[userId].slug === params.slug) {
           targetBoardId = allUsers[userId].board_id;
           continue;
         }
@@ -47,19 +47,10 @@ const BoardPage = () => {
       });
     };
     fetchData();
-  }, [
-    setBoardData,
-    loading,
-    setAuthState,
-    params.username,
-    navigate,
-    setUserData,
-  ]);
+  }, [setBoardData, loading, setAuthState, params.slug, navigate, setUserData]);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      // const userRef = ref(database, `users/${user?.uid}`);
-      // const userData = await (await get(userRef)).val();
       setAuthState(user);
     });
   }, [setAuthState]);

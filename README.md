@@ -7,6 +7,7 @@
 - [x] create account through admin sdk?
 - [ ] alert should show if there was an error during signup
 - [ ] the BoardType is wrong. needs to not allow for essentially all values
+- [x] set slugs for boards
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

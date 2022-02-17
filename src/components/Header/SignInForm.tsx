@@ -7,15 +7,20 @@ import { BoardDataCtx, UserDataCtx } from '../..';
 const SignInForm = () => {
   const { state: boardData } = useContext(BoardDataCtx);
   const { state: userData } = useContext(UserDataCtx);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [password, setPassword] = useState('');
   const signInHandler = (e: FormEvent) => {
     e.preventDefault();
     if (!password || !userData) return;
+    setLoading(true);
     signInWithEmailAndPassword(auth, userData?.email, password)
       .then(() => setPassword(''))
       .catch(() => {
         setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   const signOutHandler = (e: FormEvent) => {
@@ -52,6 +57,7 @@ const SignInForm = () => {
             borderTopLeftRadius='0'
             borderBottomLeftRadius='0'
             colorScheme='blue'
+            isLoading={loading}
           >
             Sign in
           </Button>

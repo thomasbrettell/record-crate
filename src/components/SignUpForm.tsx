@@ -36,9 +36,11 @@ const submitHandler = async (
 ) => {
   await createUserWithEmailAndPassword(auth, values.email, values.password);
 
-  await formikBag.props.setupNewUser({ name: values.userName });
+  const result = await formikBag.props.setupNewUser({ name: values.userName });
 
-  formikBag.props.navigate(`/${values.userName}`);
+  if (result) {
+    formikBag.props.navigate(`/${result.data.slug}`);
+  }
 };
 
 const SignUpForm = withFormik<SignUpFormProps, FormValues>({
@@ -55,34 +57,34 @@ const SignUpForm = withFormik<SignUpFormProps, FormValues>({
   return (
     <Form>
       <FormControl
-        marginBottom="20px"
+        marginBottom='20px'
         isInvalid={!!(touched.userName && errors.userName)}
       >
         <FormLabel>User Name</FormLabel>
-        <Field name="userName" as={Input} />
+        <Field name='userName' as={Input} />
         <FormErrorMessage>{errors.userName}</FormErrorMessage>
       </FormControl>
       <FormControl
-        marginBottom="20px"
+        marginBottom='20px'
         isInvalid={!!(touched.email && errors.email)}
       >
         <FormLabel>Email</FormLabel>
-        <Field name="email" as={Input} />
+        <Field name='email' as={Input} />
         <FormErrorMessage>{errors.email}</FormErrorMessage>
       </FormControl>
       <FormControl
-        marginBottom="25px"
+        marginBottom='25px'
         isInvalid={!!(touched.password && errors.password)}
       >
         <FormLabel>Password</FormLabel>
-        <Field type="password" name="password" as={Input} />
+        <Field type='password' name='password' as={Input} />
         <FormErrorMessage>{errors.password}</FormErrorMessage>
       </FormControl>
       <FormControl>
         <Button
           isFullWidth
-          colorScheme="blue"
-          type="submit"
+          colorScheme='blue'
+          type='submit'
           isLoading={isSubmitting}
         >
           Sign up
