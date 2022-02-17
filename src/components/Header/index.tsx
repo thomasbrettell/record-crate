@@ -1,4 +1,6 @@
 import { Box, StyleProps, Text, Flex } from '@chakra-ui/react';
+import { useContext } from 'react';
+import { UserDataCtx } from '../..';
 import SignInForm from './SignInForm';
 // import HeaderMenu from './HeaderMenu';
 // import { auth } from '../../firebaseClient';
@@ -14,12 +16,13 @@ const HeaderStyles: StyleProps = {
 };
 
 const Header = () => {
+  const { state: userData } = useContext(UserDataCtx);
   return (
-    <Box as="header" {...HeaderStyles}>
-      <Text fontWeight="bold" color="white">
-        DAHD's Records
+    <Box as='header' {...HeaderStyles}>
+      <Text fontWeight='bold' color='white' textTransform='capitalize'>
+        {userData?.name}'s Records
       </Text>
-      <Flex alignItems="center">
+      <Flex alignItems='center'>
         <SignInForm />
         {/* {auth.currentUser && auth.currentUser.uid === boardData.user_id && <HeaderMenu />} */}
       </Flex>

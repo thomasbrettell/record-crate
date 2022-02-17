@@ -28,6 +28,13 @@ export interface RecordType {
   format: string[];
 }
 
+export interface UserType {
+  board_id: string;
+  email: string;
+  name: string;
+  uid: string;
+}
+
 export interface DiscogsRelease {
   title: string;
   artists: { name: string }[];

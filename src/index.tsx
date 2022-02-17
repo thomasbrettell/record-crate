@@ -7,6 +7,7 @@ import createCtx from './util/createCtx';
 import { User } from 'firebase/auth';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
+import { UserType } from './types';
 
 const initialState: BoardType = {
   crateOrder: null,
@@ -18,6 +19,8 @@ export const [BoardDataCtx, BoardDataProvider] =
   createCtx<BoardType>(initialState);
 
 export const [AuthCtx, AuthProvider] = createCtx<User | null>(null);
+
+export const [UserDataCtx, UsrDataProvider] = createCtx<UserType | null>(null);
 
 const theme = extendTheme({
   styles: {
@@ -40,11 +43,13 @@ ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
       <BoardDataProvider>
-        <ChakraProvider theme={theme}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ChakraProvider>
+        <UsrDataProvider>
+          <ChakraProvider theme={theme}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ChakraProvider>
+        </UsrDataProvider>
       </BoardDataProvider>
     </AuthProvider>
   </React.StrictMode>,
