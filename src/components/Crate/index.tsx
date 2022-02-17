@@ -10,7 +10,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import TextareaAutosize from 'react-textarea-autosize';
 import IconButton from '../UI/IconButton';
 import Close from '../Icons/Close';
-import { auth } from '../../firebaseClient';
+import useIsAuthed from '../../hooks/useIsAuthed';
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
@@ -103,6 +103,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
   const { state: boardData } = useContext(BoardDataCtx);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [textareaEntered, setTextareaEntered] = useState(false);
+  const isAuthed = useIsAuthed();
 
   const renameHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const crateTitleRef = ref(
@@ -132,7 +133,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
   };
 
   const textareaEnterHandler = () => {
-    if (auth.currentUser?.uid !== boardData.user_id) return;
+    if (!isAuthed) return;
     setTextareaEntered(true);
     textareaRef.current?.focus();
   };
@@ -148,7 +149,7 @@ const List = ({ title, id, recordIds, index }: CrateProps) => {
                 defaultValue={title}
                 onBlur={renameHandler}
               ></Textarea>
-              {auth.currentUser && auth.currentUser.uid === boardData.user_id && (
+              {isAuthed && (
                 <DeleteButton
                   icon={<Close size={20} />}
                   onClick={deleteHandler}

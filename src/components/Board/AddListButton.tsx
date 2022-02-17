@@ -6,7 +6,7 @@ import { ref, set, push } from 'firebase/database';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { BoardDataCtx } from '../../index';
 import { Input, Button, Flex, StyleProps, Box } from '@chakra-ui/react';
-import {auth} from '../../firebaseClient'
+import useIsAuthed from '../../hooks/useIsAuthed';
 
 interface ButtonWrapperProps {
   entered: boolean;
@@ -54,6 +54,7 @@ const AddListButton = () => {
   const [listName, setListName] = useState('');
   const buttonRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isAuthed = useIsAuthed()
 
   const addListHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -82,7 +83,7 @@ const AddListButton = () => {
 
   useOnClickOutside(buttonRef, clickOutsideHandler);
 
-  if (!auth.currentUser || auth.currentUser?.uid !== boardData.user_id) return null;
+  if (!isAuthed) return null;
   return (
     <ButtonWrapper entered={entered} ref={buttonRef}>
       {!entered && (

@@ -7,6 +7,7 @@ import {
   ModalCloseButton,
   Input,
   Button,
+  Text
 } from '@chakra-ui/react';
 import { FormEvent, useRef } from 'react';
 import QueryList from './QueryList';
@@ -59,12 +60,15 @@ const CatNoSearchModal = ({
           </Button>
         </ModalHeader>
         <ModalBody>
-          {response && (
+          {response && response.results.length > 0 && (
             <QueryList
               releases={response}
               crateId={crateId}
               onClose={closeHandler}
             />
+          )}
+          {response && response.results.length === 0 && (
+            <Text>No results found</Text>
           )}
         </ModalBody>
         <ModalCloseButton />

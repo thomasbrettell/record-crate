@@ -2,8 +2,8 @@ import { Box, StyleProps, Text, Flex } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { UserDataCtx } from '../..';
 import SignInForm from './SignInForm';
+// import useIsAuthed from '../../hooks/useIsAuthed';
 // import HeaderMenu from './HeaderMenu';
-// import { auth } from '../../firebaseClient';
 
 const HeaderStyles: StyleProps = {
   display: 'flex',
@@ -16,6 +16,7 @@ const HeaderStyles: StyleProps = {
 };
 
 const Header = () => {
+  // const isAuthed = useIsAuthed()
   const { state: userData } = useContext(UserDataCtx);
   return (
     <Box as='header' {...HeaderStyles}>
@@ -24,7 +25,7 @@ const Header = () => {
       </Text>
       <Flex alignItems='center'>
         <SignInForm />
-        {/* {auth.currentUser && auth.currentUser.uid === boardData.user_id && <HeaderMenu />} */}
+        {/* {isAuthed && <HeaderMenu />} */}
       </Flex>
     </Box>
   );

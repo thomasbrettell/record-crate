@@ -41,7 +41,9 @@ const RecordWindow: FC<RecordWindowProps> = ({ record, onClose }) => {
             >
               {title}
             </Link>
-            <Text fontSize='lg' marginBottom='15px'>{artist}</Text>
+            <Text fontSize='lg' marginBottom='15px'>
+              {artist}
+            </Text>
             {country && <Text fontSize='sm'>Country: {country}</Text>}
             {year && <Text fontSize='sm'>Released: {year}</Text>}
             {format && <Text fontSize='sm'>Format: {format.join(', ')}</Text>}

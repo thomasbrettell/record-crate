@@ -20,6 +20,7 @@ const ListItem: FC<ListItemProps> = ({
   year,
   onClose,
   country,
+  format,
   ...props
 }) => {
   const { state: boardData } = useContext(BoardDataCtx);
@@ -40,7 +41,7 @@ const ListItem: FC<ListItemProps> = ({
       style: props.style,
       catno: props.catno,
       genre: props.genre,
-      format: props.format,
+      format: format,
       master_id: props.master_id,
       year: year,
       isNew: true,
@@ -66,10 +67,8 @@ const ListItem: FC<ListItemProps> = ({
         target='_blank'
       >
         {rTitle}
-        {(year || country) &&
-          ` (${year ? year : ''}${year && country ? ', ' : ''}${
-            country ? country : ''
-          })`}
+        {(year || country || format) &&
+          ` (${[year, country, format[0]].filter((el) => el).join(', ')})`}
       </Link>
       <IconButton
         aria-label='add'
@@ -79,6 +78,7 @@ const ListItem: FC<ListItemProps> = ({
         right='5px'
         size='xs'
         onClick={addRecordHandler}
+        colorScheme='blue'
       />
       <Text fontSize='xs'>{rArtist}</Text>
     </GridItem>

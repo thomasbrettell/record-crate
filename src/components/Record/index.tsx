@@ -9,7 +9,7 @@ import { Badge } from '@chakra-ui/react';
 import { database } from '../../firebaseClient';
 import { ref, remove } from 'firebase/database';
 import { BoardDataCtx } from '../..';
-import { auth } from '../../firebaseClient';
+import useIsAuthed from '../../hooks/useIsAuthed';
 
 const ListCard = styled.div`
   background-color: #fff;
@@ -65,6 +65,7 @@ interface RecordProps {
 const Record: FC<RecordProps> = ({ index, record, id }) => {
   const { isNew, cover_image, title, artist } = record;
   const { state: boardData } = useContext(BoardDataCtx);
+  const isAuthed = useIsAuthed();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const interactHandler = () => {
     onOpen();
@@ -72,7 +73,7 @@ const Record: FC<RecordProps> = ({ index, record, id }) => {
       database,
       `boards/${boardData.id}/records/${id}/isNew`
     );
-    auth.currentUser && auth.currentUser.uid === boardData.user_id && isNew && remove(recordNewRec);
+    isAuthed && isNew && remove(recordNewRec);
   };
 
   return (
@@ -91,7 +92,7 @@ const Record: FC<RecordProps> = ({ index, record, id }) => {
                 <Title>{title}</Title>
                 <Artist>{artist}</Artist>
               </Content>
-              {isNew && (
+              {isAuthed && isNew && (
                 <Badge
                   zIndex='2'
                   position='absolute'

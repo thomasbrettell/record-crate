@@ -2,14 +2,16 @@ import { auth } from '../../firebaseClient';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { Text, Input, Button, Flex, HStack } from '@chakra-ui/react';
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
-import { BoardDataCtx, UserDataCtx } from '../..';
+import { UserDataCtx } from '../..';
+import useIsAuthed from '../../hooks/useIsAuthed';
 
 const SignInForm = () => {
-  const { state: boardData } = useContext(BoardDataCtx);
   const { state: userData } = useContext(UserDataCtx);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [password, setPassword] = useState('');
+  const isAuthed = useIsAuthed();
+
   const signInHandler = (e: FormEvent) => {
     e.preventDefault();
     if (!password || !userData) return;
@@ -34,7 +36,7 @@ const SignInForm = () => {
 
   return (
     <>
-      {auth.currentUser?.uid !== boardData.user_id && (
+      {!isAuthed && (
         <Flex as='form' onSubmit={signInHandler}>
           <Input
             placeholder='Password'
@@ -63,7 +65,7 @@ const SignInForm = () => {
           </Button>
         </Flex>
       )}
-      {auth.currentUser && auth.currentUser.uid === boardData.user_id && (
+      {isAuthed && (
         <HStack as='form' onSubmit={signOutHandler} color='white'>
           <Text fontSize='xs' fontWeight='bold'>
             Signed in

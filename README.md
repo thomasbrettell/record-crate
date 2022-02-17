@@ -8,6 +8,9 @@
 - [ ] alert should show if there was an error during signup
 - [ ] the BoardType is wrong. needs to not allow for essentially all values
 - [x] set slugs for boards
+- [x] new badge shouldnt show for non users of a board
+- [ ] add delete functionality of records !important
+- [ ] better way to get board data from slug (hash map it?)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
