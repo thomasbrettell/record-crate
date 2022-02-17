@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, connectDatabaseEmulator } from 'firebase/database';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -15,6 +16,7 @@ const app = initializeApp(config);
 
 export const database = getDatabase(app);
 export const auth = getAuth(app);
+export const functions = getFunctions(app);
 
 if (
   window.location.hostname === 'localhost' &&
@@ -22,6 +24,7 @@ if (
 ) {
   connectDatabaseEmulator(database, 'localhost', 9000);
   connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+  connectFunctionsEmulator(functions, "localhost", 5001);
 }
 
 export default app;
